@@ -1,0 +1,16 @@
+.header {
+   background-color: $purple1;
+   color: white;
+   padding: 12px 20px;
+}
+.header__left {
+   grid-gap: 20px;
+}
+.header__app-name {
+   font-weight: bold;
+   font-size: 20px;
+   line-height: 28px;
+}
+.header__right {
+   grid-gap: 12px;
+}
