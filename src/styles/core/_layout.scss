@@ -1,0 +1,22 @@
+// Flex
+.flex {
+   display: flex;
+}
+.flex-column {
+   flex-direction: column;
+}
+.align-center {
+   align-items: center;
+}
+.justify-center {
+   justify-content: center;
+}
+.justify-space-between {
+   justify-content: space-between;
+}
+
+// Page layout
+.page-content {
+   padding-left: calc(#{$sidebarWidth} + 30px);
+   padding-top: 40px;
+}

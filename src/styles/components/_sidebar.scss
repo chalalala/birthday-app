@@ -1,0 +1,29 @@
+.sidebar {
+   background-color: $lightgray;
+   width: $sidebarWidth;
+   height: 100vh;
+   position: fixed;
+   left: 0;
+}
+.sidebar__link {
+   border-left: 3px solid transparent;
+   width: calc(100% - 3px);
+   display: flex;
+   justify-content: center;
+   padding: 3px 0;
+
+   &.active, &:hover {
+      background-color: $purple6;
+      border-left: 3px solid $purple0;
+
+      .material-icons {
+         color: $purple0;
+      }
+   }
+}
+.sidebar__link + .sidebar__link {
+   margin-top: 10px; 
+}
+.sidebar__link:first-child {
+   margin-top: 25px;
+}
