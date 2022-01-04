@@ -40,7 +40,7 @@ const LoginForm = () => {
             <label htmlFor="rememberMe">Remember me</label>
          </div> */}
 
-         <button class="primary-button" type="submit">Submit</button>
+         <button class="primary-button" type="submit">Sign in</button>
       </form>
    )
 }
