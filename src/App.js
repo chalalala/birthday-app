@@ -5,7 +5,7 @@ import { AuthContextProvider } from './utils/firebase';
 import CalendarPage from './pages/calendar';
 import RegisterPage from './pages/register';
 import LoginPage from './pages/login';
-import { ProtectedPage } from './components/AuthenticatingRoute';
+import ProtectedPage from './components/AuthenticatingRoute';
 
 function App() {
   return (
