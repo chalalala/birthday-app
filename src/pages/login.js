@@ -1,8 +1,10 @@
 import React from 'react';
 import AuthenticatingLayout from '../components/AuthenticatingLayout';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+   let navigate = useNavigate();
    const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -10,7 +12,7 @@ const LoginForm = () => {
       const auth = getAuth();
       try {
          await signInWithEmailAndPassword(auth, email.value, password.value);
-         console.log("Logged in");
+         navigate("/");
       }
       catch (e) {
          alert(e.message);
