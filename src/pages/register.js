@@ -28,7 +28,7 @@ const RegisterForm = () => {
             <input type="password" name="password" id="password" />
          </div>
 
-         <button type="submit">Submit</button>
+         <button class="primary-button" type="submit">Submit</button>
       </form>
    )
 }
@@ -36,7 +36,7 @@ const RegisterForm = () => {
 export default function RegisterPage() {
    return (
       <AuthenticatingLayout title="Sign Up">
-         <p>Already have an account? <a className="form__link">Sign in</a></p>
+         <div>Already have an account? <a className="form__link">Sign in</a></div>
          <RegisterForm />
       </AuthenticatingLayout>
    )
