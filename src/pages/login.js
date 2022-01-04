@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthenticatingLayout from '../components/AuthenticatingLayout';
+import { Link } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/authPage.scss';
 
 const LoginForm = () => {
    let navigate = useNavigate();
+   // const [remember, setRemember] = useState(false);
+
    const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -32,6 +35,11 @@ const LoginForm = () => {
             <input type="password" name="password" id="password" />
          </div>
 
+         {/* <div className="form__field flex align-center">
+            <input id="rememberMe" type="checkbox" onChange={(e) => setRemember(e.target.value)}></input>
+            <label htmlFor="rememberMe">Remember me</label>
+         </div> */}
+
          <button class="primary-button" type="submit">Submit</button>
       </form>
    )
@@ -40,7 +48,7 @@ const LoginForm = () => {
 export default function LoginPage() {
    return (
       <AuthenticatingLayout title="Sign In">
-         <div>Don't have an account? <a className="form__link">Sign up</a></div>
+         <div>Don't have an account? <Link to="/register" className="form__link">Sign up</Link></div>
          <LoginForm />
       </AuthenticatingLayout>
    )

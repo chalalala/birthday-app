@@ -1,8 +1,13 @@
 import React from 'react';
 import AuthenticatingLayout from '../components/AuthenticatingLayout';
+import { Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useSnackbar } from 'notistack';
+import '../styles/pages/authPage.scss';
 
 const RegisterForm = () => {
+   const { enqueueSnackbar } = useSnackbar();
+
    const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -10,6 +15,7 @@ const RegisterForm = () => {
       const auth = getAuth();
       try {
          await createUserWithEmailAndPassword(auth, email.value, password.value);
+         enqueueSnackbar('Register successfully.', { variant: 'success' });
       }
       catch (e) {
          alert(e.message);
@@ -36,7 +42,7 @@ const RegisterForm = () => {
 export default function RegisterPage() {
    return (
       <AuthenticatingLayout title="Sign Up">
-         <div>Already have an account? <a className="form__link">Sign in</a></div>
+         <div>Already have an account? <Link to="/login" className="form__link">Sign in</Link></div>
          <RegisterForm />
       </AuthenticatingLayout>
    )
