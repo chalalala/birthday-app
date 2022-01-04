@@ -18,12 +18,12 @@ const RegisterForm = () => {
 
    return (
       <form onSubmit={handleSubmit}>
-         <div class="form__field">
+         <div className="form__field">
             <label for="email">Email</label>
             <input type="email" name="email" id="email" placeholder="name@domain.com" />
          </div>
 
-         <div class="form__field">
+         <div className="form__field">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" />
          </div>
@@ -36,7 +36,7 @@ const RegisterForm = () => {
 export default function RegisterPage() {
    return (
       <AuthenticatingLayout title="Sign Up">
-         <p>Already have an account? <a class="form__link">Sign in</a></p>
+         <p>Already have an account? <a className="form__link">Sign in</a></p>
          <RegisterForm />
       </AuthenticatingLayout>
    )

@@ -19,13 +19,13 @@ const LoginForm = () => {
 
    return (
       <form onSubmit={handleSubmit}>
-         <div class="form__field">
-            <label for="email">Email</label>
+         <div className="form__field">
+            <label htmlFor="email">Email</label>
             <input type="email" name="email" id="email" placeholder="name@domain.com" />
          </div>
 
-         <div class="form__field">
-            <label for="password">Password</label>
+         <div className="form__field">
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" />
          </div>
 
@@ -37,7 +37,7 @@ const LoginForm = () => {
 export default function LoginPage() {
    return (
       <AuthenticatingLayout title="Sign In">
-         <p>Don't have an account? <a class="form__link">Sign up</a></p>
+         <p>Don't have an account? <a className="form__link">Sign up</a></p>
          <LoginForm />
       </AuthenticatingLayout>
    )
