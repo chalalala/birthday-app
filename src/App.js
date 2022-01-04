@@ -1,14 +1,11 @@
 import 'material-icons/iconfont/material-icons.css';
 import './styles/main.scss';
-import Layout from './components/Layout';
-import CsvReader from './components/CsvReader';
+import CalendarPage from './pages/calendar';
 
 function App() {
   return (
     <div className="App">
-      <Layout>
-        <CsvReader />
-      </Layout>
+      <CalendarPage />
     </div>
   );
 }
