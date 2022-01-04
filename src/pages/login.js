@@ -2,6 +2,7 @@ import React from 'react';
 import AuthenticatingLayout from '../components/AuthenticatingLayout';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import '../styles/pages/authPage.scss';
 
 const LoginForm = () => {
    let navigate = useNavigate();
@@ -31,7 +32,7 @@ const LoginForm = () => {
             <input type="password" name="password" id="password" />
          </div>
 
-         <button type="submit">Submit</button>
+         <button class="primary-button" type="submit">Submit</button>
       </form>
    )
 }
@@ -39,7 +40,7 @@ const LoginForm = () => {
 export default function LoginPage() {
    return (
       <AuthenticatingLayout title="Sign In">
-         <p>Don't have an account? <a className="form__link">Sign up</a></p>
+         <div>Don't have an account? <a className="form__link">Sign up</a></div>
          <LoginForm />
       </AuthenticatingLayout>
    )

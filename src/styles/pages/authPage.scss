@@ -1,0 +1,46 @@
+@import '../core/_variables.scss';
+
+.auth-wrapper {
+   background-image: url('../../assets/background.png');
+   width: 100%;
+   height: 100vh;
+}
+.auth-form {
+   background-color: white;
+   width: 45%;
+   min-width: 420px;
+   height: 100%;
+
+   h1 {
+      margin: 12px 0;
+   }
+   a {
+      color: $lightblue;
+   }
+   form {
+      box-sizing: border-box;
+      margin-top: 29px;
+      width: 100%;
+      padding: 0 10%;
+   }
+   label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 7px;
+   }
+   input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 12px;
+   }
+   .primary-button {
+      width: 100%;
+      margin-top: 15px;
+   }
+}
+.auth-form__inner {
+   padding-top: 15%;
+}
+.form__field + .form__field {
+   margin-top: 12px;
+}
