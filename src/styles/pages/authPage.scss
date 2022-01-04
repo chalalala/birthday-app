@@ -24,23 +24,35 @@
       padding: 0 10%;
    }
    label {
-      display: block;
       font-size: 14px;
+   }
+   input:not([type="checkbox"]) + label {
+      display: block;
       margin-bottom: 7px;
    }
-   input {
+   input[type="checkbox"] + label {
+      margin-left: 5px;
+   }
+   input:not([type="checkbox"]) {
       width: 100%;
       box-sizing: border-box;
+      border: 1px solid gray;
+      border-radius: 4px;
       padding: 9px 12px;
+      
+      &:focus {
+         outline: none;
+         background-color: $purple6;
+      }
    }
    .primary-button {
       width: 100%;
-      margin-top: 15px;
+      margin-top: 20px;
    }
 }
 .auth-form__inner {
    padding-top: 15%;
 }
 .form__field + .form__field {
-   margin-top: 12px;
+   margin-top: 10px;
 }
