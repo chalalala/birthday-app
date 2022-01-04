@@ -1,15 +1,16 @@
 import React from 'react';
 import AuthenticatingLayout from '../components/AuthenticatingLayout';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const RegisterForm = () => {
+const LoginForm = () => {
    const handleSubmit = async (e) => {
       e.preventDefault();
 
       const { email, password } = e.target.elements;
       const auth = getAuth();
       try {
-         await createUserWithEmailAndPassword(auth, email.value, password.value);
+         await signInWithEmailAndPassword(auth, email.value, password.value);
+         console.log("Logged in");
       }
       catch (e) {
          alert(e.message);
@@ -33,11 +34,11 @@ const RegisterForm = () => {
    )
 }
 
-export default function RegisterPage() {
+export default function LoginPage() {
    return (
-      <AuthenticatingLayout title="Sign Up">
-         <p>Already have an account? <a class="form__link">Sign in</a></p>
-         <RegisterForm />
+      <AuthenticatingLayout title="Sign In">
+         <p>Don't have an account? <a class="form__link">Sign up</a></p>
+         <LoginForm />
       </AuthenticatingLayout>
    )
 }
