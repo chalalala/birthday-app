@@ -8,7 +8,7 @@ export default function Header() {
             <span className="header__app-name">Birthday Calendar</span>
          </div>
 
-         <div className="flex header__right">
+         <div className="flex align-center header__right">
             <span className="material-icons">notifications</span>
             <span className="material-icons">account_circle</span>
          </div>         

@@ -1,19 +1,19 @@
 import React from 'react';
 
-const SidebarLink = ({ icon, active }) => {
+const SidebarLink = ({ icon, name, currentSite }) => {   
    return (
-      <div className={`flex justify-center sidebar__link ${active ? "active" : ""}`}>
+      <div className={`flex justify-center sidebar__link ${name === currentSite ? "active" : ""}`}>
          <span className="material-icons">{ icon }</span>
       </div>
    )
 }
 
-export default function Sidebar() {
+export default function Sidebar({ currentSite }) {
    return (
       <div className="flex flex-column sidebar">
-         <SidebarLink icon="event" active={true} />
-         <SidebarLink icon="list_alt" />
-         <SidebarLink icon="settings" />
+         <SidebarLink icon="event" name="calendar" currentSite={currentSite} />
+         <SidebarLink icon="list_alt" name="list" currentSite={currentSite} />
+         <SidebarLink icon="settings" name="settings" currentSite={currentSite} />
       </div>
    )
 }
