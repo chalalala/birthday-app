@@ -11,7 +11,7 @@ import ProtectedPage from './components/AuthenticatingRoute';
 function App() {
   return (
     <AuthContextProvider>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
         <Router>
           <Routes>
             <Route path="/" element={<ProtectedPage> <CalendarPage /> </ProtectedPage>} />
