@@ -1,13 +1,13 @@
 import { useState, React } from 'react';
 import { firebaseApp, useAuthState } from '../utils/firebase';
-import { getFirestore, collection, setDoc, doc } from 'firebase/firestore';
+import { getFirestore, collection, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 
 export default function CsvReader() {
    const { enqueueSnackbar } = useSnackbar();
 
    const [CSVFile, setCSVFile] = useState();
-   const [CSVArray, setCSVArray] = useState([]);
+   const [birthdayList, setBirthdayList] = useState([]);
 
    const { user } = useAuthState();
    const db = getFirestore(firebaseApp);
@@ -25,16 +25,11 @@ export default function CsvReader() {
          reader.onload = (e) => {
             const text = e.target.result;
             processCSV(text);
-            CSVArray.forEach(entry => saveData(entry));
-            enqueueSnackbar('Imported list successfully.', { variant: 'success' });
+            saveData();
          }
    
          reader.readAsText(CSVFile);
       }
-   }
-
-   const saveData = async (data) => {      
-      await setDoc(doc(db, user.email, "birthday-list"), data);
    }
 
    const processCSV = (str, delim=',') => {
@@ -53,7 +48,19 @@ export default function CsvReader() {
          return eachObject;
       }).filter(item => item !== undefined);
 
-      setCSVArray(newArray);
+      setBirthdayList(newArray);
+   }
+
+   const saveData = async () => {
+      if (birthdayList) {
+         await setDoc(doc(db, user.email, "birthday-list"), { birthdayList })
+         .then(() => {
+            enqueueSnackbar('Imported list successfully.', { variant: 'success' });
+         })
+         .catch((e) => {
+            enqueueSnackbar(e.message, { variant: 'error' });
+         })
+      }
    }
 
    return (
