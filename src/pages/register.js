@@ -34,7 +34,7 @@ const RegisterForm = () => {
             <input type="password" name="password" id="password" />
          </div>
 
-         <button class="primary-button" type="submit">Sign Up</button>
+         <button className="primary-button" type="submit">Sign Up</button>
       </form>
    )
 }
