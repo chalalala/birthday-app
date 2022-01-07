@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
 import { firebaseApp, useAuthState } from '../utils/firebase';
-import { getFirestore, collection, setDoc, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 
 export default function CsvReader() {
