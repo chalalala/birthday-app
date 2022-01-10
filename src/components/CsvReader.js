@@ -1,6 +1,6 @@
 import { useState, React } from 'react';
-import { firebaseApp, useAuthState } from '../utils/firebase';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { db, useAuthState } from '../utils/firebase';
+import { setDoc, doc } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 
 export default function CsvReader() {
@@ -10,7 +10,6 @@ export default function CsvReader() {
    const [birthdayList, setBirthdayList] = useState([]);
 
    const { user } = useAuthState();
-   const db = getFirestore(firebaseApp);
 
    const onFileUpload = (e) => {
       setCSVFile(e.target.files[0]);
