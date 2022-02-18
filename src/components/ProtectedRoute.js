@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuthState } from "../utils/firebase"
+import { useAuthState } from "../contexts/AuthContext";
 
 export default function ProtectedPage({ children }) {
    const { isAuthenticated } = useAuthState();

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import moment from 'moment'
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { doc, getDoc } from "firebase/firestore";
-import { db, useAuthState } from '../utils/firebase';
-import { RRule, RRuleSet, rrulestr } from 'rrule';
+import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useAuthState } from "../contexts/AuthContext";
+import { db } from '../utils/firebase';
 
 export default function BirthdayCalendar() {
     const localizer = momentLocalizer(moment);

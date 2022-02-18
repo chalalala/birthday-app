@@ -1,5 +1,6 @@
 import { useState, React } from 'react';
-import { db, useAuthState } from '../utils/firebase';
+import { db } from '../utils/firebase';
+import { useAuthState } from '../contexts/AuthContext';
 import { setDoc, doc } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 
