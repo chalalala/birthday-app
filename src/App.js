@@ -1,11 +1,11 @@
 import 'material-icons/iconfont/material-icons.css';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthContextProvider } from './contexts/AuthContext';
 import CalendarPage from './pages/calendar';
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
 import './styles/main.scss';
-import { AuthContextProvider } from './utils/firebase';
 
 function App() {
   return (
