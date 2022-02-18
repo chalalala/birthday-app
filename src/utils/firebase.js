@@ -4,7 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 
 export const firebaseApp = initializeApp({
-   apiKey: "AIzaSyCzKnlfz-gABkud2MLBSo3oI-B3xmL-UMA",
+   apiKey: process.env.REACT_APP_FIREBASE_API,
    authDomain: "birthday-app-8901c.firebaseapp.com",
    projectId: "birthday-app-8901c",
    storageBucket: "birthday-app-8901c.appspot.com",
