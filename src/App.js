@@ -1,12 +1,11 @@
 import 'material-icons/iconfont/material-icons.css';
-import './styles/main.scss';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthContextProvider } from './utils/firebase';
 import { SnackbarProvider } from 'notistack';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CalendarPage from './pages/calendar';
-import RegisterPage from './pages/register';
 import LoginPage from './pages/login';
-import ProtectedPage from './components/AuthenticatingRoute';
+import RegisterPage from './pages/register';
+import './styles/main.scss';
+import { AuthContextProvider } from './utils/firebase';
 
 function App() {
   return (
@@ -14,8 +13,9 @@ function App() {
       <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
         <Router>
           <Routes>
-            <Route path="/" element={<ProtectedPage> <CalendarPage /> </ProtectedPage>} />
+            <Route path="/" element={<CalendarPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </Router>
