@@ -17,6 +17,6 @@
 
 // Page layout
 .page-content {
-   padding-left: calc(#{$sidebarWidth} + 30px);
-   padding-top: 30px;
+   padding: 30px calc(#{$sidebarWidth} + 30px);
+   flex: 1;
 }
