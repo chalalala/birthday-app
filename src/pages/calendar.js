@@ -8,7 +8,6 @@ export default function CalendarPage() {
    return (
       <ProtectedPage>
          <Layout currentSite="calendar">
-            <CsvReader />
             <BirthdayCalendar />
          </Layout>
       </ProtectedPage>

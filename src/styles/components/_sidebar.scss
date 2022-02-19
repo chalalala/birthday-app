@@ -11,6 +11,8 @@
    display: flex;
    justify-content: center;
    padding: 3px 0;
+   text-decoration: none;
+   color: inherit;
 
    &.active, &:hover {
       background-color: $purple6;
