@@ -1,7 +1,10 @@
+$header-height: 52px;
+
 .header {
    background-color: $purple1;
    color: white;
-   padding: 12px 20px;
+   padding: 0 20px;
+   height: $header-height;
 }
 .header__left {
    grid-gap: 20px;

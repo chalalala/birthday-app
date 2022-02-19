@@ -1,9 +1,7 @@
 .sidebar {
    background-color: $lightgray;
    width: $sidebarWidth;
-   height: 100vh;
-   position: fixed;
-   left: 0;
+   height: calc(100vh - #{$header-height});
 }
 .sidebar__link {
    border-left: 3px solid transparent;
