@@ -25,7 +25,7 @@ export default function BirthdayCalendar() {
                 let recurDates = recurDate(bday);
                 let events = recurDates.map(date => (
                     {
-                        title: user.name,
+                        title: user.nickname,
                         start: date,
                         end: new Date(date),
                         allDay: true
