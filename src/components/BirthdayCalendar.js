@@ -5,36 +5,33 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useAuthState } from "../contexts/AuthContext";
 import { db } from '../utils/firebase';
+import recurDate from '../utils/recurDate';
 
 export default function BirthdayCalendar() {
     const localizer = momentLocalizer(moment);
     const { user } = useAuthState();
     const [eventList, setEventList] = useState([]);
-    
-    // const myEventsList = [
-    //     {
-    //         title: "Hello 1",
-    //         start: new Date(),
-    //         end: new Date(),
-    //         allDay: true
-    //     }
-    // ]
 
     const getEventList = async () => {
         const docRef = doc(db, user.email, "birthday-list");
         const birthdayDoc = await getDoc(docRef);
+
         if (birthdayDoc.exists()) {
-            console.log(birthdayDoc.data());
-            let newArray = birthdayDoc.data().map(entry => {
-                let currentYearBirthday = entry.DOB.splice(-1, 1, new Date().getFullYear());
-                return (
+            let birthdayList = [...birthdayDoc.data().birthdayList];
+            let newArray = [];
+            
+            birthdayList.forEach(user => {
+                let bday = new Date(user.dob);
+                let recurDates = recurDate(bday);
+                let events = recurDates.map(date => (
                     {
-                        title: entry.Name,
-                        start: new Date(currentYearBirthday),
-                        end: new Date(currentYearBirthday),
+                        title: user.name,
+                        start: date,
+                        end: new Date(date),
                         allDay: true
                     }
-                )
+                ))
+                newArray = newArray.concat(events);
             })
             setEventList(newArray);
         }
