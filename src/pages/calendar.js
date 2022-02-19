@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import CsvReader from '../components/CsvReader';
+import BirthdayImporter from '../components/BirthdayImporter';
 import BirthdayCalendar from "../components/BirthdayCalendar";
 import ProtectedPage from '../components/ProtectedRoute';
 
