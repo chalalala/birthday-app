@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useAuthState } from "../contexts/AuthContext";
 import { db } from '../utils/firebase';
 import recurDate from '../utils/recurDate';
+import { ScheduleComponent,  Week, Month, Day, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 
 export default function BirthdayCalendar() {
     const localizer = momentLocalizer(moment);
@@ -23,12 +24,13 @@ export default function BirthdayCalendar() {
             birthdayList.forEach(user => {
                 let bday = new Date(user.dob);
                 let recurDates = recurDate(bday);
-                let events = recurDates.map(date => (
+                let events = recurDates.map((date, index) => (
                     {
-                        title: user.nickname,
-                        start: date,
-                        end: new Date(date),
-                        allDay: true
+                        Id: index,
+                        Subject: user.nickname,
+                        StartTime: date,
+                        EndTime: new Date(date),
+                        IsAllDay: true
                     }
                 ))
                 newArray = newArray.concat(events);
@@ -46,15 +48,20 @@ export default function BirthdayCalendar() {
 
     return(
         <React.Fragment>
-            <Calendar
-                localizer={localizer}
-                defaultView="month"
-                views={["month"]}
-                events={eventList}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ width: 600, height: 500 }}
-            />
+            <ScheduleComponent 
+                selectedDate={new Date()}
+                eventSettings={{
+                    dataSource: eventList,
+                    allowAdding: false, allowDeleting: false,
+                    allowEditing: false
+                }}
+                cssClass='custom-class'
+            >
+                <ViewsDirective>
+                    <ViewDirective option='Month'/>
+                </ViewsDirective>
+                <Inject services={[Day, Week, Month]}/>
+            </ScheduleComponent>
         </React.Fragment>
     )
 }
