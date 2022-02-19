@@ -40,7 +40,7 @@ export default function CsvReader() {
          const val = row.split(delim);
          const eachObject = headers.reduce((obj, header, i) => {
             if (val[i]) {
-               obj[header] = val[i].trim();
+               obj[header.trim()] = val[i].trim();
                return obj;
             }
          }, {});
