@@ -4,7 +4,7 @@ import { useAuthState } from '../contexts/AuthContext';
 import { setDoc, doc } from 'firebase/firestore';
 import { useSnackbar } from 'notistack';
 
-export default function CsvReader() {
+export default function BirthdayImporter() {
    const { enqueueSnackbar } = useSnackbar();
 
    const [CSVFile, setCSVFile] = useState();
@@ -56,6 +56,7 @@ export default function CsvReader() {
          await setDoc(doc(db, user.email, "birthday-list"), { birthdayList })
          .then(() => {
             enqueueSnackbar('Imported list successfully.', { variant: 'success' });
+            console.log("Imported ", birthdayList);
          })
          .catch((e) => {
             enqueueSnackbar(e.message, { variant: 'error' });
