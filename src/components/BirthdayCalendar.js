@@ -52,10 +52,11 @@ export default function BirthdayCalendar() {
             <Calendar
                 localizer={localizer}
                 defaultView="month"
+                views={["month"]}
                 events={eventList}
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 500 }}
+                style={{ width: 600, height: 500 }}
             />
         </React.Fragment>
     )
