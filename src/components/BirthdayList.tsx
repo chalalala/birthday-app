@@ -33,7 +33,7 @@ export default function BirthdayList() {
         <th>Birthday</th>
       </tr>
 
-      { list && list.map((entry: IEntry) => (
+      { list.length > 0 && list.map((entry: IEntry) => (
         <tr key={entry.name + String(Date.now())}>
           <td>{entry.name}</td>
           <td>{moment(new Date(entry.dob)).format('DD/MM/YYYY')}</td>
