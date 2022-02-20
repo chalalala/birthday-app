@@ -1,14 +1,17 @@
 import { Day, Inject, Month, ScheduleComponent, ViewDirective, ViewsDirective, Week } from '@syncfusion/ej2-react-schedule';
 import { doc, getDoc } from "firebase/firestore";
+import moment from 'moment';
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "../contexts/AuthContext";
 import { IEntry } from "../types/IEntry";
 import { IEvent } from "../types/IEvent";
 import { db } from '../utils/firebase';
+import { uploadBirthdayList } from '../utils/maintainBirthdayList';
 
 export default function BirthdayCalendar() {
     const { user } = useAuthState();
     const [eventList, setEventList] = useState(new Array<IEvent>());
+    const [birthdayList, setBirthdayList] = useState(new Array<IEntry>());
 
     const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => (
         {
@@ -29,6 +32,7 @@ export default function BirthdayCalendar() {
             let birthdayList = [...birthdayDoc.data().birthdayList];
             let newArray = birthdayList.map((entry, index) => createEventObject(index, new Date(entry.dob), entry));
             setEventList(newArray);
+            setBirthdayList(birthdayList);
         }
         else {
             console.log("No data");
@@ -40,10 +44,25 @@ export default function BirthdayCalendar() {
         setEventList(newEventList);
     }
 
-    const onActionComplete = (action: string) => {
-        switch (action) {
-            case "eventRemove": {
-                // removeEvent();
+    const addEntry = (addedRecords: any) => {
+        let addedEntries = addedRecords.map((event: IEvent) => (
+            {
+                name: event.Subject,
+                nickname: '',
+                dob: moment(new Date(event.StartTime)).format("MM/DD/YYYY")
+            }
+        ))
+        let newList = [...birthdayList];
+        newList = newList.concat(addedEntries);
+        uploadBirthdayList(newList, user);
+    }
+
+    const onActionComplete = (action: any) => {
+        console.log(action);
+
+        switch (action.requestType) {
+            case "eventCreated": {
+                addEntry(action.addedRecords);
             }
         }
     }
