@@ -1,7 +1,7 @@
 .sidebar {
    background-color: $lightgray;
    width: $sidebarWidth;
-   height: calc(100vh - #{$header-height});
+   min-height: calc(100vh - $header-height);
    
    @include mq("mobile") {
       display: none;
