@@ -32,7 +32,7 @@ export default function BirthdayCalendar() {
             birthdayList.forEach(entry => {
                 let bday = new Date(entry.dob);
                 let recurDates = recurDate(bday);
-                let events = recurDates.map((date, index) => createEventObject(date, index, entry));
+                let events = recurDates.map((date, index) => createEventObject(index, date, entry));
                 newArray = newArray.concat(events);
             })
             setEventList(newArray);
