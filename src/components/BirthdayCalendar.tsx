@@ -54,6 +54,16 @@ export default function BirthdayCalendar() {
         ))
         let newList = [...birthdayList];
         newList = newList.concat(addedEntries);
+        setBirthdayList(newList);
+        uploadBirthdayList(newList, user);
+    }
+
+    const deleteEntry = (deletedRecords: Array<IEvent>) => {
+        let newList = [...birthdayList];
+        deletedRecords.forEach(record => {
+            newList = newList.filter((entry, index) => index !== record.Id);
+        })
+        setBirthdayList(newList);
         uploadBirthdayList(newList, user);
     }
 
@@ -63,6 +73,11 @@ export default function BirthdayCalendar() {
         switch (action.requestType) {
             case "eventCreated": {
                 addEntry(action.addedRecords);
+                break;
+            }
+            case "eventRemoved": {
+                deleteEntry(action.deletedRecords);
+                break;
             }
         }
     }
