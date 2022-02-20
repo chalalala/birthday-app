@@ -38,12 +38,7 @@ export default function BirthdayCalendar() {
             console.log("No data");
         }
     }
-
-    const removeEvent = (index: Number) => {
-        let newEventList = eventList.filter(event => event.Id !== index);
-        setEventList(newEventList);
-    }
-
+    
     const addEntry = (addedRecords: any) => {
         let addedEntries = addedRecords.map((event: IEvent) => (
             {
