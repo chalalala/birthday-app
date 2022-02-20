@@ -1,17 +1,14 @@
-import { doc, getDoc } from "firebase/firestore";
-import moment from 'moment';
 import React, { useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Day, Inject, Month, ScheduleComponent, ViewDirective, ViewsDirective, Week } from '@syncfusion/ej2-react-schedule';
+import { doc, getDoc } from "firebase/firestore";
 import { useAuthState } from "../contexts/AuthContext";
 import { db } from '../utils/firebase';
 import recurDate from '../utils/recurDate';
-import { ScheduleComponent,  Week, Month, Day, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import { IEvent } from "../types/IEvent";
 
 export default function BirthdayCalendar() {
-    const localizer = momentLocalizer(moment);
     const { user } = useAuthState();
-    const [eventList, setEventList] = useState([]);
+    const [eventList, setEventList] = useState(new Array<IEvent>());
 
     const getEventList = async () => {
         const docRef = doc(db, user.email, "birthday-list");
@@ -19,15 +16,15 @@ export default function BirthdayCalendar() {
 
         if (birthdayDoc.exists()) {
             let birthdayList = [...birthdayDoc.data().birthdayList];
-            let newArray = [];
+            let newArray = new Array<IEvent>();
             
             birthdayList.forEach(user => {
                 let bday = new Date(user.dob);
                 let recurDates = recurDate(bday);
-                let events = recurDates.map((date, index) => (
+                let events:Array<IEvent> = recurDates.map((date, index) => (
                     {
                         Id: index,
-                        Subject: user.nickname,
+                        Subject: user.nickname !== '' ? user.nickname : user.name,
                         StartTime: date,
                         EndTime: new Date(date),
                         IsAllDay: true
