@@ -5,15 +5,16 @@ import { useAuthState } from "../contexts/AuthContext";
 import { db } from '../utils/firebase';
 import recurDate from '../utils/recurDate';
 import { IEvent } from "../types/IEvent";
+import { IEntry } from "../types/IEntry";
 
 export default function BirthdayCalendar() {
     const { user } = useAuthState();
     const [eventList, setEventList] = useState(new Array<IEvent>());
 
-    const createEventObject = (date: Date, index: Number):IEvent  => (
+    const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => (
         {
             Id: index,
-            Subject: user.nickname !== '' ? user.nickname : user.name,
+            Subject: entry.nickname !== '' ? entry.nickname : entry.name,
             StartTime: date,
             EndTime: new Date(date),
             IsAllDay: true
@@ -28,10 +29,10 @@ export default function BirthdayCalendar() {
             let birthdayList = [...birthdayDoc.data().birthdayList];
             let newArray = new Array<IEvent>();
             
-            birthdayList.forEach(user => {
-                let bday = new Date(user.dob);
+            birthdayList.forEach(entry => {
+                let bday = new Date(entry.dob);
                 let recurDates = recurDate(bday);
-                let events = recurDates.map((date, index) => createEventObject(date, index));
+                let events = recurDates.map((date, index) => createEventObject(date, index, entry));
                 newArray = newArray.concat(events);
             })
             setEventList(newArray);
