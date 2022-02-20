@@ -16,7 +16,7 @@ export default function BirthdayCalendar() {
     const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => (
         {
             Id: index,
-            Subject: entry.nickname !== '' ? entry.nickname : entry.name,
+            Subject: entry.nickname ? entry.nickname : entry.name,
             StartTime: date,
             EndTime: new Date(date),
             IsAllDay: true,
@@ -38,7 +38,7 @@ export default function BirthdayCalendar() {
             console.log("No data");
         }
     }
-    
+
     const addEntry = (addedRecords: any) => {
         let addedEntries = addedRecords.map((event: IEvent) => (
             {
