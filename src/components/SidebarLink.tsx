@@ -7,12 +7,12 @@ interface Props {
    currentSite: string
 }
 
-export const SidebarLink = (props:Props) => {
+export const SidebarLink = (props: Props) => {
    const { icon, name, currentSite, to = '/' } = props;
 
    return (
       <Link to={to} className={`flex justify-center sidebar__link ${name === currentSite ? "active" : ""}`}>
-            <span className="material-icons">{ icon }</span>
+         <span className="material-icons">{ icon }</span>
       </Link>
    )
 }

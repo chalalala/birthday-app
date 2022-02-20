@@ -1,6 +1,13 @@
 import React from 'react';
 
-export default function AuthenticatingLayout({ children, title }) {
+interface Props {
+   children: any,
+   title: string
+}
+
+export default function AuthenticatingLayout(props: Props) {
+   const { children, title } = props;
+   
    return (
       <div className="auth-wrapper">
          <div className="auth-form">
