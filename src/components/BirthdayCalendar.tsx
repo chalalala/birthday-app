@@ -13,16 +13,19 @@ export default function BirthdayCalendar() {
     const [eventList, setEventList] = useState(new Array<IEvent>());
     const [birthdayList, setBirthdayList] = useState(new Array<IEntry>());
 
-    const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => (
+    const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => {
+        let bday = new Date(date);
+
+        return (
         {
             Id: index,
             Subject: entry.nickname ? entry.nickname : entry.name,
             StartTime: date,
-            EndTime: new Date(date),
+            EndTime: bday,
             IsAllDay: true,
-            RecurrenceRule: 'FREQ=YEARLY;INTERVAL=1'
+            RecurrenceRule: `FREQ=YEARLY;BYMONTHDAY=${bday.getDate()};BYMONTH=${bday.getMonth() + 1};INTERVAL=1`,
         }
-    )
+    )}
 
     const getEventList = async () => {
         const docRef = doc(db, user.email, "birthday-list");
