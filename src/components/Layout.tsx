@@ -2,7 +2,14 @@ import React from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-export default function Layout({ children, currentSite }) {
+interface Props {
+   children: any,
+   currentSite: string
+}
+
+export default function Layout(props: Props) {
+   const { children, currentSite } = props;
+   
    return (
       <React.Fragment>
          <Header />
