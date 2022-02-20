@@ -52,8 +52,9 @@ export default function BirthdayCalendar() {
                 selectedDate={new Date()}
                 eventSettings={{
                     dataSource: eventList,
-                    allowAdding: false, allowDeleting: false,
-                    allowEditing: false
+                    allowAdding: true,
+                    allowDeleting: true,
+                    allowEditing: true
                 }}
                 cssClass='birthday-calendar'
             >
