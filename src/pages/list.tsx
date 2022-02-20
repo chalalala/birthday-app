@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import * as XLSX from "xlsx"
 import BirthdayImporter from '../components/BirthdayImporter'
 import BirthdayList from '../components/BirthdayList'
+import { BirthdayToolbar } from '../components/BirthdayToolbar'
 import Layout from '../components/Layout'
 import ProtectedPage from '../components/ProtectedRoute'
 import { useAuthState } from '../contexts/AuthContext'
@@ -70,7 +71,8 @@ export default function ListPage() {
   return (
       <ProtectedPage>
         <Layout currentSite="list">
-          <BirthdayImporter onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
+          <BirthdayToolbar title="Birthday List" />
+          {/* <BirthdayImporter onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} /> */}
           <BirthdayList birthdayList={birthdayList} />
         </Layout>
       </ProtectedPage>

@@ -2,6 +2,7 @@
 @import '../../node_modules/@syncfusion/ej2/material.css';
 
 // Mixins
+@import './mixins/rem';
 @import './mixins/mq';
 
 // Core
@@ -13,3 +14,4 @@
 @import './components/header';
 @import './components/sidebar';
 @import './components/buttons';
+@import './components/birthdayToolbar';
