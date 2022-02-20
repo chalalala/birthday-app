@@ -92,7 +92,7 @@ export default function BirthdayCalendar() {
                     dataSource: eventList,
                     allowAdding: true,
                     allowDeleting: true,
-                    allowEditing: true
+                    allowEditing: false
                 }}
                 actionComplete={onActionComplete}
                 cssClass='birthday-calendar'
