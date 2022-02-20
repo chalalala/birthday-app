@@ -2,7 +2,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
 import * as XLSX from "xlsx"
-import BirthdayImporter from '../components/BirthdayImporter'
+import { BirthdayImportModal } from '../components/BirthdayImportModal'
 import BirthdayList from '../components/BirthdayList'
 import { BirthdayToolbar } from '../components/BirthdayToolbar'
 import Layout from '../components/Layout'
@@ -14,6 +14,8 @@ import { uploadBirthdayList } from '../utils/maintainBirthdayList'
 
 export default function ListPage() {
   const { enqueueSnackbar } = useSnackbar();
+
+  const [openModal, setOpenModal] = React.useState(false);
 
   const [birthdayList, setBirthdayList] = useState<Array<IEntry>>([]);
   const [uploadingList, setUploadingList] = useState<Array<IEntry>>([]);
@@ -71,8 +73,8 @@ export default function ListPage() {
   return (
       <ProtectedPage>
         <Layout currentSite="list">
-          <BirthdayToolbar title="Birthday List" />
-          {/* <BirthdayImporter onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} /> */}
+          <BirthdayImportModal open={openModal} setOpen={setOpenModal} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
+          <BirthdayToolbar title="Birthday List" setOpenModal={setOpenModal} />
           <BirthdayList birthdayList={birthdayList} />
         </Layout>
       </ProtectedPage>
