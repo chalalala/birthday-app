@@ -55,7 +55,7 @@ export default function BirthdayCalendar() {
                     allowAdding: false, allowDeleting: false,
                     allowEditing: false
                 }}
-                cssClass='custom-class'
+                cssClass='birthday-calendar'
             >
                 <ViewsDirective>
                     <ViewDirective option='Month'/>
