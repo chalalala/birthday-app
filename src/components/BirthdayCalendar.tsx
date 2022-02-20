@@ -10,6 +10,16 @@ export default function BirthdayCalendar() {
     const { user } = useAuthState();
     const [eventList, setEventList] = useState(new Array<IEvent>());
 
+    const createEventObject = (date: Date, index: Number):IEvent  => (
+        {
+            Id: index,
+            Subject: user.nickname !== '' ? user.nickname : user.name,
+            StartTime: date,
+            EndTime: new Date(date),
+            IsAllDay: true
+        }
+    )
+
     const getEventList = async () => {
         const docRef = doc(db, user.email, "birthday-list");
         const birthdayDoc = await getDoc(docRef);
@@ -21,15 +31,7 @@ export default function BirthdayCalendar() {
             birthdayList.forEach(user => {
                 let bday = new Date(user.dob);
                 let recurDates = recurDate(bday);
-                let events:Array<IEvent> = recurDates.map((date, index) => (
-                    {
-                        Id: index,
-                        Subject: user.nickname !== '' ? user.nickname : user.name,
-                        StartTime: date,
-                        EndTime: new Date(date),
-                        IsAllDay: true
-                    }
-                ))
+                let events = recurDates.map((date, index) => createEventObject(date, index));
                 newArray = newArray.concat(events);
             })
             setEventList(newArray);
