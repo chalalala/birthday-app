@@ -60,7 +60,7 @@ export default function BirthdayList() {
           { birthdayList.length > 0 && 
             birthdayList.slice(rowsPerPage*page, rowsPerPage*page + rowsPerPage).map((entry: IEntry, index: number) => (
             <TableRow key={entry.name + String(Date.now())}>
-              <TableCell>{index + 1}</TableCell>
+              <TableCell>{rowsPerPage*page + index + 1}</TableCell>
               <TableCell>{entry.name}</TableCell>
               <TableCell>{moment(new Date(entry.dob)).format('DD/MM/YYYY')}</TableCell>
               <TableCell size="small"></TableCell>
