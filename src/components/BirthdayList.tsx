@@ -1,7 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useAuthState } from "../contexts/AuthContext";
 import { IEntry } from '../types/IEntry';
 import { db } from '../utils/firebase';
@@ -13,7 +12,7 @@ export default function BirthdayList() {
   const getEventList = async () => {
 		const docRef = doc(db, user.email, "birthday-list");
 		const birthdayDoc = await getDoc(docRef);
-    
+
 		if (birthdayDoc.exists()) {
       let data = birthdayDoc.data();
       setList(data.birthdayList);
