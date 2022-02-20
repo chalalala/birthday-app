@@ -8,6 +8,8 @@
    margin: 0;
 }
 .birthday-toolbar__actions {
+   grid-gap: 16px;
+
    .text-button, .primary-button {
       @include rem(font-size, 13px);
    }
