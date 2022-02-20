@@ -1,4 +1,9 @@
+// Libraries
 @import '../../node_modules/@syncfusion/ej2/material.css';
+
+// Mixins
+@import './mixins/mq';
+
 // Core
 @import './core/variables.scss';
 @import './core/typography.scss';

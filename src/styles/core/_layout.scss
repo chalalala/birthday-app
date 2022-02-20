@@ -19,4 +19,8 @@
 .page-content {
    padding: 30px calc(#{$sidebarWidth} + 30px);
    flex: 1;
+
+   @include mq("tablet") {
+      padding: 30px 10px;
+   }
 }

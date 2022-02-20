@@ -2,6 +2,10 @@
    background-color: $lightgray;
    width: $sidebarWidth;
    height: calc(100vh - #{$header-height});
+   
+   @include mq("mobile") {
+      display: none;
+   }
 }
 .sidebar__link {
    border-left: 3px solid transparent;
