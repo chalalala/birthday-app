@@ -3,5 +3,6 @@ export interface IEvent {
    Subject: string,
    StartTime: Date,
    EndTime: Date,
-   IsAllDay: boolean
+   IsAllDay: boolean,
+   RecurrenceRule: string,
 }
