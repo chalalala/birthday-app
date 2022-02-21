@@ -12,7 +12,7 @@ function App() {
   return (
     <AuthContextProvider>
       <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
-        <Router>
+        <Router basename="birthday-app">
           <Routes>
             <Route path="/" element={<CalendarPage />} />
             <Route path="/register" element={<RegisterPage />} />
