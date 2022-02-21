@@ -13,16 +13,16 @@ export const BirthdayImportModal = (props: Props) => {
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Import list</DialogTitle>
+      <DialogTitle>Import list by XLSX</DialogTitle>
       <DialogContent>
         <DialogContentText>
+          <p>The file must include two columns <b>name</b> and <b>dob</b>, written as plain text.</p>
           <input
               type="file"
               accept=".xlsx"
               onChange={onFileUpload}/>
           <br/>
         </DialogContentText>
-        
       </DialogContent>
       <DialogActions>
         <button className="secondary-button" onClick={() => setOpen(false)}>Cancel</button>
