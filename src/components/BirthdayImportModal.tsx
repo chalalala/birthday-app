@@ -16,7 +16,10 @@ export const BirthdayImportModal = (props: Props) => {
       <DialogTitle>Import list by XLSX</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <p>The file must include two columns <b>name</b> and <b>dob</b>, written as plain text.</p>
+          <p>
+            The file must include two columns <b>name</b> and <b>dob</b>, written as plain text.<br />
+            The date must be in format <b>MM/DD/YYYY</b>.
+          </p>
           <input
               type="file"
               accept=".xlsx"
