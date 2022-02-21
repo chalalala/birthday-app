@@ -1,5 +1,5 @@
 export interface IEntry {
    name: string;
-   nickname: string;
+   nickname?: string;
    dob: Date;
 }
