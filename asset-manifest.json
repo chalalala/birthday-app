@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/birthday-app/static/css/main.d472f5e5.css",
+    "main.js": "/birthday-app/static/js/main.0db39758.js",
+    "static/js/787.f8c65c24.chunk.js": "/birthday-app/static/js/787.f8c65c24.chunk.js",
+    "static/media/material-icons-two-tone.woff": "/birthday-app/static/media/material-icons-two-tone.04411cba9583fb0df01f.woff",
+    "static/media/material-icons-two-tone.woff2": "/birthday-app/static/media/material-icons-two-tone.a70ec3e73fd410cdb178.woff2",
+    "static/media/material-icons-round.woff": "/birthday-app/static/media/material-icons-round.6289913a298e816100f5.woff",
+    "static/media/material-icons-outlined.woff": "/birthday-app/static/media/material-icons-outlined.cb25b0543db8b7f06135.woff",
+    "static/media/material-icons-round.woff2": "/birthday-app/static/media/material-icons-round.c6c0935815f6ba8fd80a.woff2",
+    "static/media/material-icons.woff": "/birthday-app/static/media/material-icons.6b3adb7ef9c9ac8d598a.woff",
+    "static/media/material-icons-sharp.woff": "/birthday-app/static/media/material-icons-sharp.aa2aae2fbd0e0b30967d.woff",
+    "static/media/material-icons-outlined.woff2": "/birthday-app/static/media/material-icons-outlined.aa80805e686668b4358c.woff2",
+    "static/media/material-icons-sharp.woff2": "/birthday-app/static/media/material-icons-sharp.b906db2201d314b2ee12.woff2",
+    "static/media/material-icons.woff2": "/birthday-app/static/media/material-icons.6c307c85ae675678f41e.woff2",
+    "static/media/background.png": "/birthday-app/static/media/background.3ff5c1efacd326a63c9c.png",
+    "index.html": "/birthday-app/index.html",
+    "main.d472f5e5.css.map": "/birthday-app/static/css/main.d472f5e5.css.map",
+    "main.0db39758.js.map": "/birthday-app/static/js/main.0db39758.js.map",
+    "787.f8c65c24.chunk.js.map": "/birthday-app/static/js/787.f8c65c24.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d472f5e5.css",
+    "static/js/main.0db39758.js"
+  ]
+}
