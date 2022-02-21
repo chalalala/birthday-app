@@ -46,7 +46,6 @@ export default function BirthdayCalendar() {
         let addedEntries = addedRecords.map((event: IEvent) => (
             {
                 name: event.Subject,
-                nickname: '',
                 dob: moment(new Date(event.StartTime)).format("MM/DD/YYYY")
             }
         ))
