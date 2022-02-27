@@ -15,7 +15,7 @@ export default function BirthdayCalendar() {
 
     const tooltipTemplate: string = '<div class="tooltip-wrap">' +
         '<div class="content-area"><div class="name">${Subject}</></div>' +
-        '<div class="time">DOB : ${StartTime.getDate()}/${StartTime.getMonth()}/${StartTime.getFullYear()} </div>';
+        '<div class="time">DOB : ${StartTime.getDate()}/${StartTime.getMonth() + 1}/${StartTime.getFullYear()} </div>';
 
     const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => {
         let bday = new Date(date);
