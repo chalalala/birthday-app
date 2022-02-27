@@ -90,6 +90,9 @@ export default function BirthdayCalendar() {
         <React.Fragment>
             <ScheduleComponent 
                 selectedDate={new Date()}
+                timeScale={{
+                    enable: false
+                }}
                 eventSettings={{
                     dataSource: eventList,
                     allowAdding: true,
@@ -99,10 +102,12 @@ export default function BirthdayCalendar() {
                     tooltipTemplate: tooltipTemplate
                 }}
                 actionComplete={onActionComplete}
+                height={550}
                 cssClass='birthday-calendar'
             >
                 <ViewsDirective>
                     <ViewDirective option='Month'/>
+                    <ViewDirective option='Week'/>
                 </ViewsDirective>
                 <Inject services={[Day, Week, Month]}/>
             </ScheduleComponent>
