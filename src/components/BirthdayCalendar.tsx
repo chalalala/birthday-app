@@ -13,6 +13,10 @@ export default function BirthdayCalendar() {
     const [eventList, setEventList] = useState(new Array<IEvent>());
     const [birthdayList, setBirthdayList] = useState(new Array<IEntry>());
 
+    const tooltipTemplate: string = '<div class="tooltip-wrap">' +
+        '<div class="content-area"><div class="name">${Subject}</></div>' +
+        '<div class="time">DOB : ${StartTime.getDate()}/${StartTime.getMonth()}/${StartTime.getFullYear()} </div>';
+
     const createEventObject = (index: Number, date: Date, entry: IEntry):IEvent  => {
         let bday = new Date(date);
 
@@ -91,7 +95,9 @@ export default function BirthdayCalendar() {
                     dataSource: eventList,
                     allowAdding: true,
                     allowDeleting: true,
-                    allowEditing: false
+                    allowEditing: false,
+                    enableTooltip: true,
+                    tooltipTemplate: tooltipTemplate
                 }}
                 actionComplete={onActionComplete}
                 cssClass='birthday-calendar'
