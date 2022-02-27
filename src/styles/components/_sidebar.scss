@@ -3,8 +3,10 @@
    width: $sidebarWidth;
    min-height: calc(100vh - $header-height);
    
-   @include mq("mobile") {
-      display: none;
+   @include mq("tablet") {
+      position: fixed;
+      left: 0;
+      transform: translateX(-100%);
    }
 }
 .sidebar__link {
