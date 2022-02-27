@@ -50,7 +50,7 @@ export default function BirthdayCalendar() {
         let addedEntries = addedRecords.map((event: IEvent) => (
             {
                 name: event.Subject,
-                dob: moment(new Date(event.StartTime)).format("MM/DD/YYYY")
+                dob: moment(event.StartTime).format("MM/DD/YYYY")
             }
         ))
         let newList = [...birthdayList];
@@ -95,7 +95,7 @@ export default function BirthdayCalendar() {
                     dataSource: eventList,
                     allowAdding: true,
                     allowDeleting: true,
-                    allowEditing: false,
+                    allowEditing: true,
                     enableTooltip: true,
                     tooltipTemplate: tooltipTemplate
                 }}
