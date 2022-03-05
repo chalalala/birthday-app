@@ -90,6 +90,7 @@ export default function BirthdayCalendar() {
         <React.Fragment>
             <ScheduleComponent 
                 selectedDate={new Date()}
+                firstDayOfWeek={1}
                 timeScale={{
                     enable: false
                 }}
