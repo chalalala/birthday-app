@@ -1,4 +1,5 @@
 import { doc, getDoc } from 'firebase/firestore'
+import moment from 'moment'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
 import * as XLSX from "xlsx"
@@ -66,6 +67,19 @@ export default function ListPage() {
 		}
   };
 
+  const exportData = () => {
+    try {
+      const worksheet = XLSX.utils.json_to_sheet(birthdayList);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+      XLSX.writeFile(workbook, `BirthdayList-${moment(new Date()).format("MMDDYY")}.xlsx`);
+      enqueueSnackbar('Exported list successfully.', { variant: 'success' });
+    }
+    catch (e: any) {
+      enqueueSnackbar(e.message, { variant: 'error' });
+    }
+  }
+
   useEffect(() => {
     getEventList();
   }, []);
@@ -74,7 +88,7 @@ export default function ListPage() {
       <ProtectedPage>
         <Layout currentSite="list">
           <BirthdayImportModal open={openModal} setOpen={setOpenModal} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
-          <BirthdayToolbar title="Birthday List" setOpenModal={setOpenModal} />
+          <BirthdayToolbar title="Birthday List" setOpenModal={setOpenModal} exportData={exportData}/>
           <BirthdayList birthdayList={birthdayList} />
         </Layout>
       </ProtectedPage>
