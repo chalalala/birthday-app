@@ -7,6 +7,7 @@ import { IEntry } from "../types/IEntry";
 import { IEvent } from "../types/IEvent";
 import { db } from '../utils/firebase';
 import { uploadBirthdayList } from '../utils/maintainBirthdayList';
+import '../styles/components/_calendar.scss';
 
 export default function BirthdayCalendar() {
     const { user } = useAuthState();
