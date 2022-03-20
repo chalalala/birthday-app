@@ -3,6 +3,7 @@ import moment from "moment";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
+import BirthdayAddModal from "../components/BirthdayAddModal";
 import { BirthdayImportModal } from "../components/BirthdayImportModal";
 import BirthdayList from "../components/BirthdayList";
 import { BirthdayToolbar } from "../components/BirthdayToolbar";
@@ -16,19 +17,28 @@ import { uploadBirthdayList } from "../utils/maintainBirthdayList";
 export default function ListPage() {
 	const { enqueueSnackbar } = useSnackbar();
 
-	const [openModal, setOpenModal] = React.useState(false);
+	const [openModalImport, setOpenModalImport] = useState(false);
+	const [openModalAdd, setOpenModalAdd] = useState(false);
 
 	const [birthdayList, setBirthdayList] = useState<Array<IEntry>>([]);
 	const [uploadingList, setUploadingList] = useState<Array<IEntry>>([]);
 
 	const { user } = useAuthState();
 
-	const handleOpen = () => {
-		setOpenModal(true);
+	const handleOpenImport = () => {
+		setOpenModalImport(true);
 	};
 
-	const handleClose = () => {
-		setOpenModal(false);
+	const handleCloseImport = () => {
+		setOpenModalImport(false);
+	};
+
+	const handleOpenAdd = () => {
+		setOpenModalAdd(true);
+	};
+
+	const handleCloseAdd = () => {
+		setOpenModalAdd(false);
 	};
 
 	const onFileUpload = (e: any) => {
@@ -93,8 +103,9 @@ export default function ListPage() {
 	return (
 		<ProtectedPage>
 			<Layout currentSite="list">
-				<BirthdayImportModal open={openModal} handleClose={handleClose} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
-				<BirthdayToolbar title="Birthday List" handleOpen={handleOpen} exportData={exportData} />
+				<BirthdayImportModal open={openModalImport} handleClose={handleCloseImport} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
+				<BirthdayAddModal open={openModalAdd} handleClose={handleCloseAdd} />
+				<BirthdayToolbar title="Birthday List" handleOpenAdd={handleOpenAdd} handleOpenImport={handleOpenImport} exportData={exportData} />
 				<BirthdayList birthdayList={birthdayList} />
 			</Layout>
 		</ProtectedPage>
