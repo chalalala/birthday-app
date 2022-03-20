@@ -11,11 +11,11 @@ type Props = {
 };
 
 const FormModal: React.FC<Props> = ({ submitText = "Save", ...props }) => {
-	const { children, open, handleClose, handleSubmit } = props;
+	const { children, title, open, handleClose, handleSubmit } = props;
 
 	return (
 		<Dialog open={open} onClose={handleClose}>
-			<DialogTitle>Import list by XLSX</DialogTitle>
+			<DialogTitle>{title}</DialogTitle>
 			<DialogContent>{children}</DialogContent>
 			<DialogActions>
 				<button className="secondary-button" onClick={handleClose}>
