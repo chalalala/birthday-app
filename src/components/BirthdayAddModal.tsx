@@ -14,12 +14,13 @@ type Props = {
 	open: boolean;
 	handleClose: () => void;
 	birthdayList: Array<IEntry>;
+	setBirthdayList: (list: Array<IEntry>) => void;
 };
 
 const BirthdayAddModal = (props: Props) => {
 	const { enqueueSnackbar } = useSnackbar();
 
-	const { open, handleClose, birthdayList } = props;
+	const { open, handleClose, birthdayList, setBirthdayList } = props;
 
 	const [fullname, setFullname] = useState("");
 	const [nickname, setNickname] = useState("");
@@ -40,6 +41,7 @@ const BirthdayAddModal = (props: Props) => {
 	const addEntry = (addedEntry: any) => {
 		let newList = [...birthdayList];
 		newList.push(addedEntry);
+		setBirthdayList(newList);
 
 		try {
 			uploadBirthdayList(newList, user);
@@ -47,6 +49,11 @@ const BirthdayAddModal = (props: Props) => {
 		} catch (e: any) {
 			enqueueSnackbar(e.message, { variant: "error" });
 		}
+
+		setFullname("");
+		setNickname("");
+		setDOB(null);
+		handleClose();
 	};
 
 	return (
