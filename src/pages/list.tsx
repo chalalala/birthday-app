@@ -104,7 +104,7 @@ export default function ListPage() {
 		<ProtectedPage>
 			<Layout currentSite="list">
 				<BirthdayImportModal open={openModalImport} handleClose={handleCloseImport} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
-				<BirthdayAddModal open={openModalAdd} handleClose={handleCloseAdd} birthdayList={birthdayList} />
+				<BirthdayAddModal open={openModalAdd} handleClose={handleCloseAdd} birthdayList={birthdayList} setBirthdayList={setBirthdayList} />
 				<BirthdayToolbar title="Birthday List" handleOpenAdd={handleOpenAdd} handleOpenImport={handleOpenImport} exportData={exportData} />
 				<BirthdayList birthdayList={birthdayList} />
 			</Layout>
