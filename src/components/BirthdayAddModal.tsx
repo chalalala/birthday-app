@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Box, TextField } from "@mui/material";
+import { useState } from "react";
+import { FormControl, TextField } from "@mui/material";
 import FormModal from "./commons/FormModal";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -57,11 +57,35 @@ const BirthdayAddModal = (props: Props) => {
 	};
 
 	return (
-		<FormModal title="Add entry" open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
+		<FormModal
+			title="Add entry"
+			open={open}
+			handleClose={handleClose}
+			handleSubmit={handleSubmit}
+		>
 			{/* <DialogContentText>To subscribe to this website, please enter your email address here. We will send updates occasionally.</DialogContentText> */}
-			<TextField value={fullname} onChange={(e) => setFullname(e.target.value)} autoFocus name="fullname" label="Full name" type="text" margin="normal" fullWidth variant="outlined" />
-			<TextField value={nickname} onChange={(e) => setNickname(e.target.value)} name="nickname" label="Nick name" type="text" margin="normal" fullWidth variant="outlined" />
-			<Box sx={{ mt: 2 }}>
+			<TextField
+				value={fullname}
+				onChange={(e) => setFullname(e.target.value)}
+				autoFocus
+				name="fullname"
+				label="Full name"
+				type="text"
+				margin="normal"
+				fullWidth
+				variant="outlined"
+			/>
+			<TextField
+				value={nickname}
+				onChange={(e) => setNickname(e.target.value)}
+				name="nickname"
+				label="Nick name"
+				type="text"
+				margin="normal"
+				fullWidth
+				variant="outlined"
+			/>
+			<FormControl fullWidth sx={{ mt: 2 }}>
 				<LocalizationProvider dateAdapter={DateAdapter}>
 					<DatePicker
 						label="DOB"
@@ -73,7 +97,7 @@ const BirthdayAddModal = (props: Props) => {
 						renderInput={(params) => <TextField {...params} />}
 					/>
 				</LocalizationProvider>
-			</Box>
+			</FormControl>
 		</FormModal>
 	);
 };
