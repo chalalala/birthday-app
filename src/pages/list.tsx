@@ -14,31 +14,30 @@ import { IEntry } from "../types/IEntry";
 import { db } from "../utils/firebase";
 import { uploadBirthdayList } from "../utils/maintainBirthdayList";
 
+enum ModalType {
+	ADD = "Add",
+	IMPORT = "Import",
+}
+
 export default function ListPage() {
 	const { enqueueSnackbar } = useSnackbar();
 
-	const [openModalImport, setOpenModalImport] = useState(false);
-	const [openModalAdd, setOpenModalAdd] = useState(false);
+	const [open, setOpen] = useState<{ show: boolean; type: ModalType | undefined }>({
+		show: true,
+		type: undefined,
+	});
 
 	const [birthdayList, setBirthdayList] = useState<Array<IEntry>>([]);
 	const [uploadingList, setUploadingList] = useState<Array<IEntry>>([]);
 
 	const { user } = useAuthState();
 
-	const handleOpenImport = () => {
-		setOpenModalImport(true);
+	const handleClose = () => {
+		setOpen({ show: false, type: undefined });
 	};
 
-	const handleCloseImport = () => {
-		setOpenModalImport(false);
-	};
-
-	const handleOpenAdd = () => {
-		setOpenModalAdd(true);
-	};
-
-	const handleCloseAdd = () => {
-		setOpenModalAdd(false);
+	const handleOpen = (type: ModalType) => {
+		setOpen({ show: true, type: type });
 	};
 
 	const onFileUpload = (e: any) => {
@@ -96,6 +95,33 @@ export default function ListPage() {
 		}
 	};
 
+	const RenderModal = () => {
+		switch (open.type) {
+			case ModalType.ADD: {
+				return (
+					<BirthdayAddModal
+						open={open.show}
+						handleClose={handleClose}
+						birthdayList={birthdayList}
+						setBirthdayList={setBirthdayList}
+					/>
+				);
+			}
+			case ModalType.IMPORT: {
+				return (
+					<BirthdayImportModal
+						open={open.show}
+						handleClose={handleClose}
+						onFileSubmit={onFileSubmit}
+						onFileUpload={onFileUpload}
+					/>
+				);
+			}
+			default:
+				return <></>;
+		}
+	};
+
 	useEffect(() => {
 		getEventList();
 	}, []);
@@ -103,10 +129,14 @@ export default function ListPage() {
 	return (
 		<ProtectedPage>
 			<Layout currentSite="list">
-				<BirthdayImportModal open={openModalImport} handleClose={handleCloseImport} onFileSubmit={onFileSubmit} onFileUpload={onFileUpload} />
-				<BirthdayAddModal open={openModalAdd} handleClose={handleCloseAdd} birthdayList={birthdayList} setBirthdayList={setBirthdayList} />
-				<BirthdayToolbar title="Birthday List" handleOpenAdd={handleOpenAdd} handleOpenImport={handleOpenImport} exportData={exportData} />
+				<BirthdayToolbar
+					title="Birthday List"
+					handleOpenAdd={() => handleOpen(ModalType.ADD)}
+					handleOpenImport={() => handleOpen(ModalType.IMPORT)}
+					exportData={exportData}
+				/>
 				<BirthdayList birthdayList={birthdayList} />
+				{open.show && <RenderModal />}
 			</Layout>
 		</ProtectedPage>
 	);
