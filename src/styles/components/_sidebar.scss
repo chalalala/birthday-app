@@ -1,9 +1,13 @@
 .sidebar {
    background-color: $lightgray;
    width: $sidebarWidth;
-   height: 100vh;
-   position: fixed;
-   left: 0;
+   min-height: calc(100vh - $header-height);
+   
+   @include mq("tablet") {
+      position: fixed;
+      left: 0;
+      transform: translateX(-100%);
+   }
 }
 .sidebar__link {
    border-left: 3px solid transparent;
@@ -11,6 +15,8 @@
    display: flex;
    justify-content: center;
    padding: 3px 0;
+   text-decoration: none;
+   color: inherit;
 
    &.active, &:hover {
       background-color: $purple6;

@@ -1,9 +1,18 @@
+// Libraries
+@import "../../node_modules/@syncfusion/ej2/material.css";
+
+// Mixins
+@import "./mixins/rem";
+@import "./mixins/mq";
+
 // Core
-@import './core/variables.scss';
-@import './core/typography.scss';
-@import './core/layout.scss';
+@import "./core/variables.scss";
+@import "./core/typography.scss";
+@import "./core/layout.scss";
 
 // Components
-@import './components/header';
-@import './components/sidebar';
-@import './components/buttons';
+@import "./components/header";
+@import "./components/sidebar";
+@import "./components/buttons";
+@import "./components/form";
+@import "./components/birthdayToolbar";

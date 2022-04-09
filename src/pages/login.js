@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import AuthenticatingLayout from '../components/AuthenticatingLayout';
-import { Link } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import AuthenticatingLayout from '../components/AuthenticatingLayout';
 import '../styles/pages/authPage.scss';
 
 const LoginForm = () => {

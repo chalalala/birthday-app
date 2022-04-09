@@ -1,22 +1,23 @@
 import 'material-icons/iconfont/material-icons.css';
-import './styles/main.scss';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthContextProvider } from './utils/firebase';
 import { SnackbarProvider } from 'notistack';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthContextProvider } from './contexts/AuthContext';
+import ListPage from './pages/list';
 import CalendarPage from './pages/calendar';
-import RegisterPage from './pages/register';
 import LoginPage from './pages/login';
-import ProtectedPage from './components/AuthenticatingRoute';
+import RegisterPage from './pages/register';
+import './styles/main.scss';
 
 function App() {
   return (
     <AuthContextProvider>
       <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
-        <Router>
+        <Router basename="birthday-app">
           <Routes>
-            <Route path="/" element={<ProtectedPage> <CalendarPage /> </ProtectedPage>} />
+            <Route path="/" element={<CalendarPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/list" element={<ListPage />} />
           </Routes>
         </Router>
       </SnackbarProvider>
