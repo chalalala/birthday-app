@@ -14,6 +14,7 @@ import { useAuthState } from "../contexts/AuthContext";
 import { IEntry } from "../types/IEntry";
 import { ModalType } from "../types/ModalType";
 import { uploadBirthdayList } from "../utils/maintainBirthdayList";
+import { WarningModal } from "../components/WarningModal";
 
 export default function ListPage() {
 	const { enqueueSnackbar } = useSnackbar();
@@ -72,6 +73,24 @@ export default function ListPage() {
 					/>
 				);
 			}
+			case ModalType.WARNING: {
+				<BirthdayEntryModal
+					open={open.show}
+					handleClose={handleClose}
+					birthdayList={birthdayList}
+					setBirthdayList={setBirthdayList}
+					type={ModalType.UPDATE}
+					entry={open.entry}
+				/>;
+				return (
+					<WarningModal
+						open={open.show}
+						handleClose={handleClose}
+						handleSubmit={handleDelete}
+						entry={open.entry}
+					/>
+				);
+			}
 			default:
 				return <></>;
 		}
@@ -101,7 +120,7 @@ export default function ListPage() {
 		setBirthdayList(uploadingList);
 
 		try {
-			uploadBirthdayList(birthdayList, user);
+			uploadBirthdayList(uploadingList, user);
 			enqueueSnackbar("Imported list successfully.", { variant: "success" });
 		} catch (e: any) {
 			enqueueSnackbar(e.message, { variant: "error" });
@@ -133,16 +152,16 @@ export default function ListPage() {
 	};
 
 	const handleDelete = (entry: IEntry) => {
-		let newList = [...birthdayList];
-		newList.filter((item) => item !== entry);
+		let newList = birthdayList.filter((item) => item !== entry);
 		setBirthdayList(newList);
-		handleClose();
 
 		try {
-			uploadBirthdayList(birthdayList, user);
+			uploadBirthdayList(newList, user);
 			enqueueSnackbar("Deleted entry successfully.", { variant: "success" });
 		} catch (e: any) {
 			enqueueSnackbar(e.message, { variant: "error" });
+		} finally {
+			handleClose();
 		}
 	};
 
@@ -159,7 +178,7 @@ export default function ListPage() {
 					handleOpenImport={() => handleOpen(ModalType.IMPORT)}
 					exportData={exportData}
 				/>
-				<BirthdayList handleOpenUpdate={handleOpen} birthdayList={birthdayList} handleDelete={handleDelete} />
+				<BirthdayList handleOpenUpdate={handleOpen} birthdayList={birthdayList} />
 				{open.show && <RenderModal />}
 			</Layout>
 		</ProtectedPage>

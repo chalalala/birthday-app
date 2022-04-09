@@ -1,5 +1,6 @@
 export enum ModalType {
 	ADD = "Add",
 	IMPORT = "Import",
-	UPDATE = "Update"
+	UPDATE = "Update",
+	WARNING = "WARNING"
 }
