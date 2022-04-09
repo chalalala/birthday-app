@@ -8,16 +8,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { entryFields, IEntry } from "../types/IEntry";
 import { ModalType } from "../types/ModalType";
 
 interface Props {
 	birthdayList: Array<IEntry>;
-	hanldeOpenUpdate: Function;
+	handleDelete: Function;
+	handleOpenUpdate: Function;
 }
 
 export default function BirthdayList(props: Props) {
-	const { birthdayList, hanldeOpenUpdate } = props;
+	const { birthdayList, handleDelete, handleOpenUpdate } = props;
 
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [page, setPage] = React.useState(0);
@@ -34,10 +36,10 @@ export default function BirthdayList(props: Props) {
 	const printFieldValue = (entry: any, key: string) => {
 		switch (key) {
 			case entryFields.dob: {
-				return <TableCell key={entry.id}>{moment(new Date(entry[key])).format("DD/MM/YYYY")}</TableCell>;
+				return <TableCell key={key + Date.now()}>{moment(new Date(entry[key])).format("DD/MM/YYYY")}</TableCell>;
 			}
 			default:
-				return <TableCell key={entry.id}>{entry[key]}</TableCell>;
+				return <TableCell key={key + Date.now()}>{entry[key]}</TableCell>;
 		}
 	};
 
@@ -65,8 +67,12 @@ export default function BirthdayList(props: Props) {
 										return printFieldValue(entry, key);
 									})}
 									<TableCell size="small">
-										<IconButton onClick={() => hanldeOpenUpdate(ModalType.UPDATE, entry)} aria-label="update">
+										<IconButton onClick={() => handleOpenUpdate(ModalType.UPDATE, entry)} aria-label="update">
 											<EditIcon />
+										</IconButton>
+
+										<IconButton onClick={() => handleDelete(entry)} aria-label="update">
+											<DeleteIcon />
 										</IconButton>
 									</TableCell>
 								</TableRow>
