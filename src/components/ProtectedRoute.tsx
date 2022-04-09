@@ -1,7 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { useAuthState } from "../utils/firebase"
+import { useAuthState } from "../contexts/AuthContext";
 
-export default function ProtectedPage({ children }) {
+interface Props {
+   children: any
+}
+
+export default function ProtectedPage(props: Props) {
+   const { children } = props;
    const { isAuthenticated } = useAuthState();
    console.log(`AuthenticatedRoute: ${ isAuthenticated }`);
 
