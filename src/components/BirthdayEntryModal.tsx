@@ -9,33 +9,48 @@ import { uploadBirthdayList } from "../utils/maintainBirthdayList";
 import { useAuthState } from "../contexts/AuthContext";
 import { useSnackbar } from "notistack";
 import moment from "moment";
+import { ModalType } from "../types/ModalType";
 
 type Props = {
 	open: boolean;
 	handleClose: () => void;
 	birthdayList: Array<IEntry>;
 	setBirthdayList: (list: Array<IEntry>) => void;
+	type: ModalType;
+	entry?: IEntry;
 };
 
-const BirthdayAddModal = (props: Props) => {
+const BirthdayEntryModal = (props: Props) => {
 	const { enqueueSnackbar } = useSnackbar();
 
-	const { open, handleClose, birthdayList, setBirthdayList } = props;
+	const { entry, type, open, handleClose, birthdayList, setBirthdayList } = props;
 
-	const [fullname, setFullname] = useState("");
-	const [nickname, setNickname] = useState("");
-	const [dob, setDOB] = useState<Date | null>(null);
+	const [fullname, setFullname] = useState(entry?.name ?? "");
+	const [contact, setContact] = useState(entry?.contact ?? "");
+	const [dob, setDOB] = useState<Date | null>(entry ? new Date(entry.dob) : null);
 
 	const { user } = useAuthState();
 
 	const handleSubmit = () => {
-		const newBirthdayObject: IEntry = {
+		let birthdayObject: IEntry = {
+			id: entry ? entry.id : birthdayList.length + 1,
 			name: fullname,
-			nickname: nickname,
 			dob: moment(dob).format("MM/DD/YYYY") ?? "",
+			contact: contact,
 		};
 
-		addEntry(newBirthdayObject);
+		switch (type) {
+			case ModalType.ADD: {
+				addEntry(birthdayObject);
+				break;
+			}
+			case ModalType.UPDATE: {
+				updateEntry(birthdayObject);
+				break;
+			}
+			default:
+				break;
+		}
 	};
 
 	const addEntry = (addedEntry: any) => {
@@ -50,19 +65,34 @@ const BirthdayAddModal = (props: Props) => {
 			enqueueSnackbar(e.message, { variant: "error" });
 		}
 
+		onCloseModal();
+	};
+
+	const updateEntry = (addedEntry: any) => {
+		let newList = [...birthdayList];
+
+		entry && newList.splice(birthdayList.indexOf(entry), 1, addedEntry);
+		setBirthdayList(newList);
+
+		try {
+			uploadBirthdayList(newList, user);
+			enqueueSnackbar("Updated entry successfully.", { variant: "success" });
+		} catch (e: any) {
+			enqueueSnackbar(e.message, { variant: "error" });
+		}
+
+		onCloseModal();
+	};
+
+	const onCloseModal = () => {
 		setFullname("");
-		setNickname("");
+		setContact("");
 		setDOB(null);
 		handleClose();
 	};
 
 	return (
-		<FormModal
-			title="Add entry"
-			open={open}
-			handleClose={handleClose}
-			handleSubmit={handleSubmit}
-		>
+		<FormModal title={`${type} entry`} open={open} handleClose={handleClose} handleSubmit={handleSubmit}>
 			{/* <DialogContentText>To subscribe to this website, please enter your email address here. We will send updates occasionally.</DialogContentText> */}
 			<TextField
 				value={fullname}
@@ -75,16 +105,7 @@ const BirthdayAddModal = (props: Props) => {
 				fullWidth
 				variant="outlined"
 			/>
-			<TextField
-				value={nickname}
-				onChange={(e) => setNickname(e.target.value)}
-				name="nickname"
-				label="Nick name"
-				type="text"
-				margin="normal"
-				fullWidth
-				variant="outlined"
-			/>
+
 			<FormControl fullWidth sx={{ mt: 2 }}>
 				<LocalizationProvider dateAdapter={DateAdapter}>
 					<DatePicker
@@ -98,8 +119,19 @@ const BirthdayAddModal = (props: Props) => {
 					/>
 				</LocalizationProvider>
 			</FormControl>
+
+			<TextField
+				value={contact}
+				onChange={(e) => setContact(e.target.value)}
+				name="contact"
+				label="Contact"
+				type="text"
+				margin="normal"
+				fullWidth
+				variant="outlined"
+			/>
 		</FormModal>
 	);
 };
 
-export default BirthdayAddModal;
+export default BirthdayEntryModal;

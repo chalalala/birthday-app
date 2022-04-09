@@ -1,4 +1,5 @@
-import { Paper, TableFooter, TablePagination } from "@mui/material";
+import React from "react";
+import { IconButton, Paper, TableFooter, TablePagination } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -6,16 +7,17 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import moment from "moment";
-import React from "react";
-import { useAuthState } from "../contexts/AuthContext";
-import { IEntry } from "../types/IEntry";
+import EditIcon from "@mui/icons-material/Edit";
+import { entryFields, IEntry } from "../types/IEntry";
+import { ModalType } from "../types/ModalType";
 
 interface Props {
 	birthdayList: Array<IEntry>;
+	hanldeOpenUpdate: Function;
 }
 
 export default function BirthdayList(props: Props) {
-	const { birthdayList } = props;
+	const { birthdayList, hanldeOpenUpdate } = props;
 
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [page, setPage] = React.useState(0);
@@ -29,15 +31,26 @@ export default function BirthdayList(props: Props) {
 		setPage(0);
 	};
 
+	const printFieldValue = (entry: any, key: string) => {
+		switch (key) {
+			case entryFields.dob: {
+				return <TableCell key={entry.id}>{moment(new Date(entry[key])).format("DD/MM/YYYY")}</TableCell>;
+			}
+			default:
+				return <TableCell key={entry.id}>{entry[key]}</TableCell>;
+		}
+	};
+
 	return (
 		<TableContainer component={Paper}>
 			<Table>
 				<TableHead>
 					<TableRow>
-						<TableCell>No</TableCell>
-						<TableCell>Name</TableCell>
-						<TableCell>DOB</TableCell>
-						<TableCell size="small">Actions</TableCell>
+						<TableCell>No.</TableCell>
+						{Object.values(entryFields).map((field: string) => (
+							<TableCell key={field}>{field}</TableCell>
+						))}
+						<TableCell>Actions</TableCell>
 					</TableRow>
 				</TableHead>
 
@@ -46,11 +59,16 @@ export default function BirthdayList(props: Props) {
 						birthdayList
 							.slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage)
 							.map((entry: IEntry, index: number) => (
-								<TableRow key={entry.name + String(Date.now())}>
+								<TableRow key={entry.id}>
 									<TableCell>{rowsPerPage * page + index + 1}</TableCell>
-									<TableCell>{entry.name}</TableCell>
-									<TableCell>{moment(new Date(entry.dob)).format("DD/MM/YYYY")}</TableCell>
-									<TableCell size="small"></TableCell>
+									{Object.keys(entryFields).map((key) => {
+										return printFieldValue(entry, key);
+									})}
+									<TableCell size="small">
+										<IconButton onClick={() => hanldeOpenUpdate(ModalType.UPDATE, entry)} aria-label="update">
+											<EditIcon />
+										</IconButton>
+									</TableCell>
 								</TableRow>
 							))}
 				</TableBody>

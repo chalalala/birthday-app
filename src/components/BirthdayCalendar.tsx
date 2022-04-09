@@ -23,7 +23,7 @@ export default function BirthdayCalendar() {
         return (
         {
             Id: index,
-            Subject: entry.nickname ? entry.nickname : entry.name,
+            Subject: entry.name,
             StartTime: date,
             EndTime: bday,
             IsAllDay: true,
