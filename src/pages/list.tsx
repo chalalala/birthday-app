@@ -132,6 +132,20 @@ export default function ListPage() {
 		}
 	};
 
+	const handleDelete = (entry: IEntry) => {
+		let newList = [...birthdayList];
+		newList.filter((item) => item !== entry);
+		setBirthdayList(newList);
+		handleClose();
+
+		try {
+			uploadBirthdayList(birthdayList, user);
+			enqueueSnackbar("Deleted entry successfully.", { variant: "success" });
+		} catch (e: any) {
+			enqueueSnackbar(e.message, { variant: "error" });
+		}
+	};
+
 	useEffect(() => {
 		getEventList();
 	}, []);
@@ -145,7 +159,7 @@ export default function ListPage() {
 					handleOpenImport={() => handleOpen(ModalType.IMPORT)}
 					exportData={exportData}
 				/>
-				<BirthdayList hanldeOpenUpdate={handleOpen} birthdayList={birthdayList} />
+				<BirthdayList handleOpenUpdate={handleOpen} birthdayList={birthdayList} handleDelete={handleDelete} />
 				{open.show && <RenderModal />}
 			</Layout>
 		</ProtectedPage>
