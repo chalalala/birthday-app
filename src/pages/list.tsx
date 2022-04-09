@@ -1,30 +1,27 @@
+import React, { useEffect, useState } from "react";
+import Layout from "../components/Layout";
+import ProtectedPage from "../components/ProtectedRoute";
 import { doc, getDoc } from "firebase/firestore";
+import { db } from "../utils/firebase";
 import moment from "moment";
 import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import BirthdayAddModal from "../components/BirthdayAddModal";
+import BirthdayEntryModal from "../components/BirthdayEntryModal";
 import { BirthdayImportModal } from "../components/BirthdayImportModal";
 import BirthdayList from "../components/BirthdayList";
 import { BirthdayToolbar } from "../components/BirthdayToolbar";
-import Layout from "../components/Layout";
-import ProtectedPage from "../components/ProtectedRoute";
 import { useAuthState } from "../contexts/AuthContext";
 import { IEntry } from "../types/IEntry";
-import { db } from "../utils/firebase";
+import { ModalType } from "../types/ModalType";
 import { uploadBirthdayList } from "../utils/maintainBirthdayList";
-
-enum ModalType {
-	ADD = "Add",
-	IMPORT = "Import",
-}
 
 export default function ListPage() {
 	const { enqueueSnackbar } = useSnackbar();
 
-	const [open, setOpen] = useState<{ show: boolean; type: ModalType | undefined }>({
+	const [open, setOpen] = useState<{ show: boolean; type: ModalType | undefined; entry: IEntry | undefined }>({
 		show: true,
 		type: undefined,
+		entry: undefined,
 	});
 
 	const [birthdayList, setBirthdayList] = useState<Array<IEntry>>([]);
@@ -33,11 +30,51 @@ export default function ListPage() {
 	const { user } = useAuthState();
 
 	const handleClose = () => {
-		setOpen({ show: false, type: undefined });
+		setOpen({ show: false, type: undefined, entry: undefined });
 	};
 
-	const handleOpen = (type: ModalType) => {
-		setOpen({ show: true, type: type });
+	const handleOpen = (type: ModalType, entry?: IEntry) => {
+		setOpen({ show: true, type: type, entry: entry });
+	};
+
+	const RenderModal = () => {
+		switch (open.type) {
+			case ModalType.ADD: {
+				return (
+					<BirthdayEntryModal
+						open={open.show}
+						handleClose={handleClose}
+						birthdayList={birthdayList}
+						setBirthdayList={setBirthdayList}
+						type={ModalType.ADD}
+					/>
+				);
+			}
+			case ModalType.UPDATE: {
+				return (
+					<BirthdayEntryModal
+						open={open.show}
+						handleClose={handleClose}
+						birthdayList={birthdayList}
+						setBirthdayList={setBirthdayList}
+						type={ModalType.UPDATE}
+						entry={open.entry}
+					/>
+				);
+			}
+			case ModalType.IMPORT: {
+				return (
+					<BirthdayImportModal
+						open={open.show}
+						handleClose={handleClose}
+						onFileSubmit={onFileSubmit}
+						onFileUpload={onFileUpload}
+					/>
+				);
+			}
+			default:
+				return <></>;
+		}
 	};
 
 	const onFileUpload = (e: any) => {
@@ -51,7 +88,7 @@ export default function ListPage() {
 				const sheetName = workbook.SheetNames[0];
 				const worksheet = workbook.Sheets[sheetName];
 				importedList = XLSX.utils.sheet_to_json(worksheet);
-				console.log(importedList);
+				console.log("🚀 ~ file: list.tsx ~ line 93 ~ onFileUpload ~ importedList", importedList);
 				setUploadingList(importedList);
 			};
 			reader.readAsArrayBuffer(e.target.files[0]);
@@ -95,33 +132,6 @@ export default function ListPage() {
 		}
 	};
 
-	const RenderModal = () => {
-		switch (open.type) {
-			case ModalType.ADD: {
-				return (
-					<BirthdayAddModal
-						open={open.show}
-						handleClose={handleClose}
-						birthdayList={birthdayList}
-						setBirthdayList={setBirthdayList}
-					/>
-				);
-			}
-			case ModalType.IMPORT: {
-				return (
-					<BirthdayImportModal
-						open={open.show}
-						handleClose={handleClose}
-						onFileSubmit={onFileSubmit}
-						onFileUpload={onFileUpload}
-					/>
-				);
-			}
-			default:
-				return <></>;
-		}
-	};
-
 	useEffect(() => {
 		getEventList();
 	}, []);
@@ -135,7 +145,7 @@ export default function ListPage() {
 					handleOpenImport={() => handleOpen(ModalType.IMPORT)}
 					exportData={exportData}
 				/>
-				<BirthdayList birthdayList={birthdayList} />
+				<BirthdayList hanldeOpenUpdate={handleOpen} birthdayList={birthdayList} />
 				{open.show && <RenderModal />}
 			</Layout>
 		</ProtectedPage>

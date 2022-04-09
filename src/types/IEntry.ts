@@ -1,5 +1,12 @@
 export interface IEntry {
+	id: number;
 	name: string;
-	nickname?: string;
 	dob: Date | string;
+	contact?: string;
+}
+
+export const entryFields = {
+	name: 'Name',
+	dob: 'DOB',
+	contact: 'Contact',
 }
