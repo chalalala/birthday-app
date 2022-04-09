@@ -14,12 +14,11 @@ import { ModalType } from "../types/ModalType";
 
 interface Props {
 	birthdayList: Array<IEntry>;
-	handleDelete: Function;
 	handleOpenUpdate: Function;
 }
 
 export default function BirthdayList(props: Props) {
-	const { birthdayList, handleDelete, handleOpenUpdate } = props;
+	const { birthdayList, handleOpenUpdate } = props;
 
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [page, setPage] = React.useState(0);
@@ -71,7 +70,10 @@ export default function BirthdayList(props: Props) {
 											<EditIcon />
 										</IconButton>
 
-										<IconButton onClick={() => handleDelete(entry)} aria-label="update">
+										<IconButton
+											onClick={() => handleOpenUpdate(ModalType.WARNING, entry)}
+											aria-label="update"
+										>
 											<DeleteIcon />
 										</IconButton>
 									</TableCell>
