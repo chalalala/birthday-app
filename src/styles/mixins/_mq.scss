@@ -1,13 +1,15 @@
 $breakpoints: (
-   "mobile": 375,
-   "tablet": 749,
-   "desktop": 1024
+  'mobile': 375,
+  'tablet': 749,
+  'desktop': 1024,
 );
 
-@mixin mq($screen, $type: "max-width") {
-   @each $key, $val in $breakpoints {
-      @if $key == $screen {
-         @media (#{$type}: #{$val}px) { @content; }
-      } 
-   }
+@mixin mq($screen, $type: 'max-width') {
+  @each $key, $val in $breakpoints {
+    @if $key == $screen {
+      @media (#{$type}: #{$val}px) {
+        @content;
+      }
+    }
+  }
 }

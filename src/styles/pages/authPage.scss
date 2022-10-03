@@ -1,58 +1,58 @@
 @import '../core/_variables.scss';
 
 .auth-wrapper {
-   background-image: url('../../assets/background.png');
-   width: 100%;
-   height: 100vh;
+  background-image: url('../../assets/background.png');
+  width: 100%;
+  height: 100vh;
 }
 .auth-form {
-   background-color: white;
-   width: 610px;
-   max-width: 100%;
-   height: 100%;
+  background-color: white;
+  width: 610px;
+  max-width: 100%;
+  height: 100%;
 
-   h1 {
-      margin: 12px 0;
-   }
-   a {
-      color: $lightblue;
-   }
-   form {
-      box-sizing: border-box;
-      margin-top: 29px;
-      width: 100%;
-      padding: 0 10%;
-   }
-   label {
-      font-size: 14px;
-   }
-   input:not([type="checkbox"]) + label {
-      display: block;
-      margin-bottom: 7px;
-   }
-   input[type="checkbox"] + label {
-      margin-left: 5px;
-   }
-   input:not([type="checkbox"]) {
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid gray;
-      border-radius: 4px;
-      padding: 9px 12px;
-      
-      &:focus {
-         outline: none;
-         background-color: $purple6;
-      }
-   }
-   .primary-button {
-      width: 100%;
-      margin-top: 20px;
-   }
+  h1 {
+    margin: 12px 0;
+  }
+  a {
+    color: $lightblue;
+  }
+  form {
+    box-sizing: border-box;
+    margin-top: 29px;
+    width: 100%;
+    padding: 0 10%;
+  }
+  label {
+    font-size: 14px;
+  }
+  input:not([type='checkbox']) + label {
+    display: block;
+    margin-bottom: 7px;
+  }
+  input[type='checkbox'] + label {
+    margin-left: 5px;
+  }
+  input:not([type='checkbox']) {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 9px 12px;
+
+    &:focus {
+      outline: none;
+      background-color: $purple6;
+    }
+  }
+  .primary-button {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 .auth-form__inner {
-   padding-top: 15%;
+  padding-top: 15%;
 }
 .form__field + .form__field {
-   margin-top: 10px;
+  margin-top: 10px;
 }

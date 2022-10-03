@@ -1,14 +1,14 @@
-import { Navigate } from "react-router-dom";
-import { useAuthState } from "../contexts/AuthContext";
+import { Navigate } from 'react-router-dom';
+import { useAuthState } from '../contexts/AuthContext';
 
 interface Props {
-   children: any
+  children: any;
 }
 
 export default function ProtectedPage(props: Props) {
-   const { children } = props;
-   const { isAuthenticated } = useAuthState();
-   console.log(`AuthenticatedRoute: ${ isAuthenticated }`);
+  const { children } = props;
+  const { isAuthenticated } = useAuthState();
+  console.log(`AuthenticatedRoute: ${isAuthenticated}`);
 
-   return isAuthenticated ? children : <Navigate to="/login" />
+  return isAuthenticated ? children : <Navigate to="/login" />;
 }

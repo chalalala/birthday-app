@@ -3,16 +3,16 @@
 $base-px: 16;
 
 @function strip-unit($number) {
-   @if type-of($number) == 'number' and not unitless($number) {
-     @return math.div($number, $number * 0 + 1);
-   }
- 
-   @return $number;
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return math.div($number, $number * 0 + 1);
+  }
+
+  @return $number;
 }
 
 @mixin rem($prop, $val) {
-   $px-val: strip-unit($val);
-   $rem-val: math.div($px-val, $base-px);
-   
-   #{$prop}: #{$rem-val}rem;
+  $px-val: strip-unit($val);
+  $rem-val: math.div($px-val, $base-px);
+
+  #{$prop}: #{$rem-val}rem;
 }

@@ -1,19 +1,20 @@
 .birthday-toolbar {
-   margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .birthday-toolbar__title {
-   font-weight: 600;
-   font-size: 24px;
-   line-height: 29px;
-   margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
 }
 .birthday-toolbar__actions {
-   grid-gap: 16px;
+  grid-gap: 16px;
 
-   .text-button, .primary-button {
-      @include rem(font-size, 13px);
-   }
+  .text-button,
+  .primary-button {
+    @include rem(font-size, 13px);
+  }
 }
 .birthday-toolbar__button {
-   padding: 7px 20px;
+  padding: 7px 20px;
 }
