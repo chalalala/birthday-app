@@ -1,29 +1,29 @@
 // Flex
 .flex {
-   display: flex;
+  display: flex;
 }
 .flex-column {
-   flex-direction: column;
+  flex-direction: column;
 }
 .align-center {
-   align-items: center;
+  align-items: center;
 }
 .justify-center {
-   justify-content: center;
+  justify-content: center;
 }
 .justify-space-between {
-   justify-content: space-between;
+  justify-content: space-between;
 }
 .justify-flex-end {
-   justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 // Page layout
 .page-content {
-   padding: 30px;
-   flex: 1;
+  padding: 30px;
+  flex: 1;
 
-   @include mq("tablet") {
-      padding: 30px 10px;
-   }
+  @include mq('tablet') {
+    padding: 30px 10px;
+  }
 }

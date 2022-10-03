@@ -1,19 +1,19 @@
 $header-height: 52px;
 
 .header {
-   background-color: $purple1;
-   color: white;
-   padding: 0 20px;
-   height: $header-height;
+  background-color: $purple1;
+  color: white;
+  padding: 0 20px;
+  height: $header-height;
 }
 .header__left {
-   grid-gap: 20px;
+  grid-gap: 20px;
 }
 .header__app-name {
-   font-weight: bold;
-   font-size: 20px;
-   line-height: 28px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
 }
 .header__right {
-   grid-gap: 12px;
+  grid-gap: 12px;
 }
