@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../components/Layout';
-import ProtectedPage from '../components/ProtectedRoute';
+import Layout from '../components/commons/Layout';
+import ProtectedPage from '../components/commons/ProtectedRoute';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../utils/firebase';
 import moment from 'moment';

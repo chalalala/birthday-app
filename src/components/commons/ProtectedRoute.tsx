@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useAuthState } from '../contexts/AuthContext';
+import { useAuthState } from '../../contexts/AuthContext';
 
 interface Props {
   children: any;

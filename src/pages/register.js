@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthenticatingLayout from '../components/AuthenticatingLayout';
+import AuthenticatingLayout from '../components/commons/AuthenticatingLayout';
 import { Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useSnackbar } from 'notistack';

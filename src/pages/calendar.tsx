@@ -1,7 +1,7 @@
 import React from 'react';
 import BirthdayCalendar from '../components/BirthdayCalendar';
-import Layout from '../components/Layout';
-import ProtectedPage from '../components/ProtectedRoute';
+import Layout from '../components/commons/Layout';
+import ProtectedPage from '../components/commons/ProtectedRoute';
 
 export default function CalendarPage() {
   return (

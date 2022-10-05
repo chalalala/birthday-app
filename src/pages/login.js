@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthenticatingLayout from '../components/AuthenticatingLayout';
+import AuthenticatingLayout from '../components/commons/AuthenticatingLayout';
 import '../styles/pages/authPage.scss';
 
 const LoginForm = () => {
