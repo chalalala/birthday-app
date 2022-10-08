@@ -1,0 +1,21 @@
+name: Format check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install modules
+        run: yarn install
+      - name: Run precise-commits formatting check
+        run: yarn precise-commits --head=${{ github.event.pull_request.head.sha }} --base=${{ github.event.pull_request.base.sha }}
