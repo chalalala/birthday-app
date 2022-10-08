@@ -61,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "precise-commits": "^1.0.2",
     "prettier": "2.7.1"
   }
 }
