@@ -1,6 +1,14 @@
 import React from 'react';
+import { useSignOut } from '../../contexts/AuthContext';
+import IconButton from '@mui/material/IconButton';
+import { AccountCircle, Logout, Notifications } from '@mui/icons-material';
 
 export default function Header() {
+  const signout = useSignOut();
+  const buttonStyle = {
+    color: 'white',
+  };
+
   return (
     <div className="header flex justify-space-between">
       <div className="flex align-center header__left">
@@ -9,8 +17,17 @@ export default function Header() {
       </div>
 
       <div className="flex align-center header__right">
-        <span className="material-icons">notifications</span>
-        <span className="material-icons">account_circle</span>
+        <IconButton sx={buttonStyle}>
+          <Notifications />
+        </IconButton>
+
+        <IconButton sx={buttonStyle}>
+          <AccountCircle />
+        </IconButton>
+
+        <IconButton onClick={() => signout()} sx={buttonStyle}>
+          <Logout />
+        </IconButton>
       </div>
     </div>
   );
