@@ -103,11 +103,11 @@ export default function BirthdayCalendar() {
   return (
     <React.Fragment>
       <ScheduleComponent
-        selectedDate={new Date()}
         firstDayOfWeek={1}
         timeScale={{
           enable: false,
         }}
+        enablePersistence={true}
         eventSettings={{
           dataSource: eventList,
           allowAdding: true,
