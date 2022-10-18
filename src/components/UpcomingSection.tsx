@@ -16,7 +16,7 @@ export const UpcomingSection = () => {
 
   useEffect(() => {
     fetchIncomingBirthdays();
-  }, [user.email]);
+  }, []);
 
   return (
     <div>
