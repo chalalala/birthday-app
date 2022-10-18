@@ -12,7 +12,8 @@ interface IAuthContext {
 
 export const useAuthState = () => {
   const auth = useContext(AuthContext) as IAuthContext | null;
-  return { ...auth, isAuthenticated: auth ? auth.user !== null : false };
+  
+  return { ...auth, isAuthenticated: auth ? !!auth.user : false };
 };
 
 export const useSignOut = () => {
