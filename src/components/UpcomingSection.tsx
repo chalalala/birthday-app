@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useAuthState } from '../contexts/AuthContext';
 import '../styles/components/_upcomingSection.scss';
 import { IEntry } from '../types/IEntry';
+import { useAuthState } from '../utils/auth';
 import { getUpcomingBirthdayList } from '../utils/maintainBirthdayList';
 import { BirthdayCard } from './BirthdayCard';
 
