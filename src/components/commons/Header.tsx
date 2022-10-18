@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignOut } from '../../contexts/AuthContext';
+import { useSignOut } from '../../utils/auth';
 import IconButton from '@mui/material/IconButton';
 import { AccountCircle, Logout, Notifications } from '@mui/icons-material';
 

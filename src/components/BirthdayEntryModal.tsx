@@ -6,7 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DatePicker } from '@mui/lab';
 import { IEntry } from '../types/IEntry';
 import { uploadBirthdayList } from '../utils/maintainBirthdayList';
-import { useAuthState } from '../contexts/AuthContext';
+import { useAuthState } from '../utils/auth';
 import { useSnackbar } from 'notistack';
 import moment from 'moment';
 import { ModalType } from '../types/ModalType';
