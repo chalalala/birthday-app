@@ -10,7 +10,7 @@ import BirthdayEntryModal from '../components/BirthdayEntryModal';
 import { BirthdayImportModal } from '../components/BirthdayImportModal';
 import BirthdayList from '../components/BirthdayList';
 import { BirthdayToolbar } from '../components/BirthdayToolbar';
-import { useAuthState } from '../contexts/AuthContext';
+import { useAuthState } from '../utils/auth';
 import { IEntry } from '../types/IEntry';
 import { ModalType } from '../types/ModalType';
 import { uploadBirthdayList } from '../utils/maintainBirthdayList';
