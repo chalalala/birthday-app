@@ -1,12 +1,12 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import React from 'react';
+import { browserLocalPersistence, browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthenticatingLayout from '../components/commons/AuthenticatingLayout';
 import '../styles/pages/authPage.scss';
 
 const LoginForm = () => {
   let navigate = useNavigate();
-  // const [remember, setRemember] = useState(false);
+  const [remember, setRemember] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,6 +14,7 @@ const LoginForm = () => {
     const { email, password } = e.target.elements;
     const auth = getAuth();
     try {
+      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence)
       await signInWithEmailAndPassword(auth, email.value, password.value);
       navigate('/');
     } catch (e) {
@@ -38,10 +39,10 @@ const LoginForm = () => {
         <input type="password" name="password" id="password" />
       </div>
 
-      {/* <div className="form__field flex align-center">
-            <input id="rememberMe" type="checkbox" onChange={(e) => setRemember(e.target.value)}></input>
-            <label htmlFor="rememberMe">Remember me</label>
-         </div> */}
+      <div className="form__field flex align-center">
+        <input id="rememberMe" type="checkbox" onChange={(e) => setRemember(e.target.value)}></input>
+        <label htmlFor="rememberMe">Remember me</label>
+      </div>
 
       <button className="primary-button" type="submit">
         Sign in
