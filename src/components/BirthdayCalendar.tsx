@@ -21,6 +21,7 @@ export default function BirthdayCalendar() {
   const { user } = useAuthState();
   const [eventList, setEventList] = useState(new Array<IEvent>());
   const [birthdayList, setBirthdayList] = useState(new Array<IEntry>());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const tooltipTemplate: string =
     '<div class="tooltip-wrap">' +
@@ -96,6 +97,10 @@ export default function BirthdayCalendar() {
     }
   };
 
+  const onEventClick = (args: any) => {
+    setSelectedDate(args.startTime);
+  };
+
   useEffect(() => {
     getEventList();
   }, []);
@@ -103,11 +108,11 @@ export default function BirthdayCalendar() {
   return (
     <React.Fragment>
       <ScheduleComponent
+        selectedDate={selectedDate}
         firstDayOfWeek={1}
         timeScale={{
           enable: false,
         }}
-        enablePersistence={true}
         eventSettings={{
           dataSource: eventList,
           allowAdding: true,
@@ -116,6 +121,7 @@ export default function BirthdayCalendar() {
           enableTooltip: true,
           tooltipTemplate: tooltipTemplate,
         }}
+        cellClick={onEventClick}
         actionComplete={onActionComplete}
         height={550}
         cssClass="birthday-calendar"
