@@ -9,13 +9,13 @@ export const UpcomingSection = () => {
   const { user } = useAuthState();
   const [birthdayList, setBirthdayList] = useState<IEntry[]>([]);
 
-  const fetchIncomingBirthdays = async () => {
+  const fetchUpcomingBirthdays = async () => {
     const list: IEntry[] = await getUpcomingBirthdayList(user);
     setBirthdayList(list);
   };
 
   useEffect(() => {
-    fetchIncomingBirthdays();
+    fetchUpcomingBirthdays();
   }, []);
 
   return (
