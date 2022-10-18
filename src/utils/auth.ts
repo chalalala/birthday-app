@@ -12,7 +12,7 @@ interface IAuthContext {
 
 export const useAuthState = () => {
   const auth = useContext(AuthContext) as IAuthContext | null;
-  return { ...auth, isAuthenticated: auth?.user !== null };
+  return { ...auth, isAuthenticated: auth ? auth.user !== null : false };
 };
 
 export const useSignOut = () => {
