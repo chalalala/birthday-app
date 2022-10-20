@@ -10,7 +10,7 @@ import {
 import { doc, getDoc } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from '../contexts/AuthContext';
+import { useAuthState } from '../utils/auth';
 import { IEntry } from '../types/IEntry';
 import { IEvent } from '../types/IEvent';
 import { db } from '../utils/firebase';
@@ -19,8 +19,8 @@ import '../styles/components/_calendar.scss';
 
 export default function BirthdayCalendar() {
   const { user } = useAuthState();
-  const [eventList, setEventList] = useState(new Array<IEvent>());
-  const [birthdayList, setBirthdayList] = useState(new Array<IEntry>());
+  const [eventList, setEventList] = useState<IEvent[]>([]);
+  const [birthdayList, setBirthdayList] = useState<IEntry[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const tooltipTemplate: string =
@@ -40,9 +40,7 @@ export default function BirthdayCalendar() {
       StartTime: date,
       EndTime: bday,
       IsAllDay: true,
-      RecurrenceRule: `FREQ=YEARLY;BYMONTHDAY=${bday.getDate()};BYMONTH=${
-        bday.getMonth() + 1
-      };INTERVAL=1`,
+      RecurrenceRule: `FREQ=YEARLY;BYMONTHDAY=${bday.getDate()};BYMONTH=${bday.getMonth() + 1};INTERVAL=1`,
     };
   };
 

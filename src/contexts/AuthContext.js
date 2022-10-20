@@ -1,9 +1,7 @@
-import { getAuth, signOut, onAuthStateChanged } from '@firebase/auth';
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { PATH } from '../constants/path';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import { createContext, useEffect, useState } from 'react';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export const AuthContextProvider = (props) => {
   const [user, setUser] = useState();
@@ -14,27 +12,9 @@ export const AuthContextProvider = (props) => {
     return () => unsubscribe();
   }, []);
 
-  return <AuthContext.Provider value={{ user, error }} {...props} />;
-};
+  if (user !== undefined) {
+    return <AuthContext.Provider value={{ user, error }} {...props} />;
+  }
 
-export const useAuthState = () => {
-  const auth = useContext(AuthContext);
-  return { ...auth, isAuthenticated: auth.user != null };
-};
-
-export const useSignOut = () => {
-  const auth = getAuth();
-  const navigate = useNavigate();
-
-  const signout = () => {
-    signOut(auth)
-      .then(() => {
-        navigate(PATH.login);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  return signout;
+  return null;
 };
