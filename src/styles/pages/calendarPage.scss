@@ -1,7 +1,10 @@
 @import '../core/_variables.scss';
+@import '../mixins/_mq';
 
 .calendar-page-container {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-column-gap: 33px;
+  @include mq('tablet', 'min-width') {
+    display: grid;
+    grid-template-columns: 3fr 11fr;
+    grid-column-gap: 24px;
+  }
 }

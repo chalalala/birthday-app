@@ -9,13 +9,20 @@ interface IProps {
 const DATE_FORMAT = 'MM/DD/YYYY';
 
 export const BirthdayCard = ({ birthday }: IProps) => {
-  const daysLeft = moment(birthday.dob, DATE_FORMAT).diff(moment(), 'days');
+  // Diff date and excluding time
+  const daysLeft = moment(birthday.dob, DATE_FORMAT)
+    .startOf('day')
+    .diff(moment(Date.now()).startOf('day'), 'days');
 
   return (
     <div className="card-container">
       <div className="time-wrapper">
-        <h3>{moment(birthday.dob, DATE_FORMAT).format('MMM')}</h3>
-        <h1>{moment(birthday.dob, DATE_FORMAT).get('D')}</h1>
+        <p className="card-container__month">
+          {moment(birthday.dob, DATE_FORMAT).format('MMM')}
+        </p>
+        <p className="card-container__date">
+          {moment(birthday.dob, DATE_FORMAT).get('D')}
+        </p>
       </div>
       <div className="info-wrapper">
         <div className="days-count-txt">

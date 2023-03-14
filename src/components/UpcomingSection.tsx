@@ -19,7 +19,7 @@ export const UpcomingSection = () => {
   }, []);
 
   return (
-    <div>
+    <div className="upcoming-section">
       <div className="header-title">Upcoming Birthdays</div>
       {birthdayList.map((birthday: IEntry) => (
         <BirthdayCard birthday={birthday} />
