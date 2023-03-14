@@ -1,18 +1,15 @@
 import { IEntry } from '../types/IEntry';
 import '../styles/components/_birthdayCard.scss';
 import moment from 'moment';
+import { getUpcomingDateMessage } from '../utils/upcomingSection';
+import { DATE_FORMAT, getDiffDate } from '../utils/date';
 
 interface IProps {
   birthday: IEntry;
 }
 
-const DATE_FORMAT = 'MM/DD/YYYY';
-
 export const BirthdayCard = ({ birthday }: IProps) => {
-  // Diff date and excluding time
-  const daysLeft = moment(birthday.dob, DATE_FORMAT)
-    .startOf('day')
-    .diff(moment(Date.now()).startOf('day'), 'days');
+  const daysLeft = getDiffDate(birthday.dob, Date.now());
 
   return (
     <div className="card-container">
@@ -25,10 +22,7 @@ export const BirthdayCard = ({ birthday }: IProps) => {
         </p>
       </div>
       <div className="info-wrapper">
-        <div className="days-count-txt">
-          {daysLeft}
-          {daysLeft > 1 ? ' days left' : ' day left'}
-        </div>
+        <div className="days-count-txt">{getUpcomingDateMessage(daysLeft)}</div>
         <div className="name-txt">{birthday.name}</div>
         <div className="contact-txt">{birthday.contact}</div>
       </div>

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import '../styles/components/_upcomingSection.scss';
 import { IEntry } from '../types/IEntry';
 import { useAuthState } from '../utils/auth';
-import { getUpcomingBirthdayList } from '../utils/maintainBirthdayList';
+import { getDiffDate } from '../utils/date';
+import { getUpcomingBirthdayList } from '../utils/upcomingSection';
 import { BirthdayCard } from './BirthdayCard';
 
 export const UpcomingSection = () => {
@@ -11,7 +12,8 @@ export const UpcomingSection = () => {
 
   const fetchUpcomingBirthdays = async () => {
     const list: IEntry[] = await getUpcomingBirthdayList(user);
-    setBirthdayList(list);
+    const sortedList = list.sort((a, b) => getDiffDate(a.dob, b.dob));
+    setBirthdayList(sortedList);
   };
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export const UpcomingSection = () => {
     <div className="upcoming-section">
       <div className="header-title">Upcoming Birthdays</div>
       {birthdayList.map((birthday: IEntry) => (
-        <BirthdayCard birthday={birthday} />
+        <BirthdayCard key={birthday.id} birthday={birthday} />
       ))}
     </div>
   );
