@@ -37,7 +37,7 @@ export const getUpcomingBirthdayList = async (user: any) => {
     const startDate = moment();
     const endDate = moment().add(RANGE_OF_UPCOMING_BIRTHDAYS, 'day');
     return [...birthdayDoc.data().birthdayList].filter((item) =>
-      moment(item.dob, 'MM/DD/YYYY').isBetween(startDate, endDate),
+      moment(item.dob, 'MM/DD/YYYY').isBetween(startDate, endDate, 'day', '[]'),
     ) as IEntry[];
   } else {
     return [];
