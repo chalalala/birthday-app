@@ -27,11 +27,17 @@ const FormModal: React.FC<Props> = ({ submitText = 'Submit', ...props }) => {
   } = props;
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <button className="secondary-button" onClick={handleClose}>
+        <button
+          className="secondary-button"
+          onClick={handleClose}
+        >
           Cancel
         </button>
         <button

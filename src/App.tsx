@@ -12,13 +12,28 @@ import { PATH } from './constants/path';
 function App() {
   return (
     <AuthContextProvider>
-      <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+      <SnackbarProvider
+        maxSnack={3}
+        autoHideDuration={2000}
+      >
         <Router basename="birthday-app">
           <Routes>
-            <Route path={PATH.index} element={<CalendarPage />} />
-            <Route path={PATH.register} element={<RegisterPage />} />
-            <Route path={PATH.login} element={<LoginPage />} />
-            <Route path={PATH.birthdayList} element={<ListPage />} />
+            <Route
+              path={PATH.index}
+              element={<CalendarPage />}
+            />
+            <Route
+              path={PATH.register}
+              element={<RegisterPage />}
+            />
+            <Route
+              path={PATH.login}
+              element={<LoginPage />}
+            />
+            <Route
+              path={PATH.birthdayList}
+              element={<ListPage />}
+            />
           </Routes>
         </Router>
       </SnackbarProvider>

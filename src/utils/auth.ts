@@ -6,13 +6,13 @@ import { PATH } from '../constants/path';
 import { AuthContext } from '../contexts/AuthContext';
 
 interface IAuthContext {
-  user: any,
-  error: any
+  user: any;
+  error: any;
 }
 
 export const useAuthState = () => {
   const auth = useContext(AuthContext) as IAuthContext | null;
-  
+
   return { ...auth, isAuthenticated: auth && auth.user !== null };
 };
 

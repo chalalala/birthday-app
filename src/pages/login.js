@@ -1,4 +1,10 @@
-import { browserLocalPersistence, browserSessionPersistence, getAuth, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthenticatingLayout from '../components/commons/AuthenticatingLayout';
@@ -14,7 +20,10 @@ const LoginForm = () => {
     const { email, password } = e.target.elements;
     const auth = getAuth();
     try {
-      await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence)
+      await setPersistence(
+        auth,
+        remember ? browserLocalPersistence : browserSessionPersistence,
+      );
       await signInWithEmailAndPassword(auth, email.value, password.value);
       navigate('/');
     } catch (e) {
@@ -36,15 +45,26 @@ const LoginForm = () => {
 
       <div className="form__field">
         <label htmlFor="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+        />
       </div>
 
       <div className="form__field flex align-center">
-        <input id="rememberMe" type="checkbox" onChange={(e) => setRemember(e.target.value)}></input>
+        <input
+          id="rememberMe"
+          type="checkbox"
+          onChange={(e) => setRemember(e.target.value)}
+        ></input>
         <label htmlFor="rememberMe">Remember me</label>
       </div>
 
-      <button className="primary-button" type="submit">
+      <button
+        className="primary-button"
+        type="submit"
+      >
         Sign in
       </button>
     </form>
@@ -56,7 +76,10 @@ export default function LoginPage() {
     <AuthenticatingLayout title="Sign In">
       <div>
         Don't have an account?{' '}
-        <Link to="/register" className="form__link">
+        <Link
+          to="/register"
+          className="form__link"
+        >
           Sign up
         </Link>
       </div>

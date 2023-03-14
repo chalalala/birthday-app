@@ -15,10 +15,16 @@ export const BirthdayToolbar = (props: Props) => {
     <div className={`flex ${justifyClass} birthday-toolbar`}>
       {title && <h1 className="birthday-toolbar__title">{title}</h1>}
       <div className="flex birthday-toolbar__actions">
-        <button onClick={handleOpenImport} className="text-button">
+        <button
+          onClick={handleOpenImport}
+          className="text-button"
+        >
           Import
         </button>
-        <button onClick={exportData} className="text-button">
+        <button
+          onClick={exportData}
+          className="text-button"
+        >
           Export
         </button>
         <button

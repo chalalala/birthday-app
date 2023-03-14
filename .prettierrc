@@ -1,8 +1,23 @@
 {
-  "tabWidth": 2,
-  "singleQuote": true,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "always",
   "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
   "trailingComma": "all",
+  "htmlWhitespaceSensitivity": "ignore",
   "arrowParens": "always",
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "singleAttributePerLine": true,
+  "overrides": [
+    {
+      "files": "**/*.md",
+      "options": {
+        "printWidth": 80
+      }
+    }
+  ]
 }

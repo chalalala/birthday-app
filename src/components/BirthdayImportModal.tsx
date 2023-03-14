@@ -26,8 +26,15 @@ export const BirthdayImportModal = (props: Props) => {
         The date must be in format <b>MM/DD/YYYY</b>.
       </DialogContentText>
 
-      <FormControl fullWidth sx={{ mt: 2 }}>
-        <input type="file" accept=".xlsx" onChange={(e) => onFileUpload(e)} />
+      <FormControl
+        fullWidth
+        sx={{ mt: 2 }}
+      >
+        <input
+          type="file"
+          accept=".xlsx"
+          onChange={(e) => onFileUpload(e)}
+        />
       </FormControl>
     </FormModal>
   );

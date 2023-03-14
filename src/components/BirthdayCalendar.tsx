@@ -40,7 +40,9 @@ export default function BirthdayCalendar() {
       StartTime: date,
       EndTime: bday,
       IsAllDay: true,
-      RecurrenceRule: `FREQ=YEARLY;BYMONTHDAY=${bday.getDate()};BYMONTH=${bday.getMonth() + 1};INTERVAL=1`,
+      RecurrenceRule: `FREQ=YEARLY;BYMONTHDAY=${bday.getDate()};BYMONTH=${
+        bday.getMonth() + 1
+      };INTERVAL=1`,
     };
   };
 

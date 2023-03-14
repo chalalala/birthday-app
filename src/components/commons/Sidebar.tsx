@@ -22,7 +22,11 @@ export default function Sidebar(props: Props) {
         name="list"
         currentSite={currentSite}
       />
-      <SidebarLink icon="settings" name="settings" currentSite={currentSite} />
+      <SidebarLink
+        icon="settings"
+        name="settings"
+        currentSite={currentSite}
+      />
     </div>
   );
 }

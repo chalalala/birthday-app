@@ -13,7 +13,12 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   if (user !== undefined) {
-    return <AuthContext.Provider value={{ user, error }} {...props} />;
+    return (
+      <AuthContext.Provider
+        value={{ user, error }}
+        {...props}
+      />
+    );
   }
 
   return null;

@@ -24,7 +24,10 @@ export const UpcomingSection = () => {
     <div className="upcoming-section">
       <div className="header-title">Upcoming Birthdays</div>
       {birthdayList.map((birthday: IEntry) => (
-        <BirthdayCard key={birthday.id} birthday={birthday} />
+        <BirthdayCard
+          key={birthday.id}
+          birthday={birthday}
+        />
       ))}
     </div>
   );

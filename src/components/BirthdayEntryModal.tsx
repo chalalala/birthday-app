@@ -118,7 +118,10 @@ const BirthdayEntryModal = (props: Props) => {
         variant="outlined"
       />
 
-      <FormControl fullWidth sx={{ mt: 2 }}>
+      <FormControl
+        fullWidth
+        sx={{ mt: 2 }}
+      >
         <LocalizationProvider dateAdapter={DateAdapter}>
           <DatePicker
             label="DOB"

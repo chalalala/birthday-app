@@ -25,7 +25,10 @@ export default function Header() {
           <AccountCircle />
         </IconButton>
 
-        <IconButton onClick={() => signout()} sx={buttonStyle}>
+        <IconButton
+          onClick={() => signout()}
+          sx={buttonStyle}
+        >
           <Logout />
         </IconButton>
       </div>
