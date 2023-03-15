@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/birthday-app/static/css/main.80cf6c23.css",
+    "main.css": "/birthday-app/static/css/main.fbb23552.css",
     "main.js": "/birthday-app/static/js/main.3b528917.js",
     "static/js/787.f8c65c24.chunk.js": "/birthday-app/static/js/787.f8c65c24.chunk.js",
     "static/media/material-icons-two-tone.woff": "/birthday-app/static/media/material-icons-two-tone.04411cba9583fb0df01f.woff",
@@ -15,12 +15,12 @@
     "static/media/material-icons.woff2": "/birthday-app/static/media/material-icons.6c307c85ae675678f41e.woff2",
     "static/media/background.png": "/birthday-app/static/media/background.3ff5c1efacd326a63c9c.png",
     "index.html": "/birthday-app/index.html",
-    "main.80cf6c23.css.map": "/birthday-app/static/css/main.80cf6c23.css.map",
+    "main.fbb23552.css.map": "/birthday-app/static/css/main.fbb23552.css.map",
     "main.3b528917.js.map": "/birthday-app/static/js/main.3b528917.js.map",
     "787.f8c65c24.chunk.js.map": "/birthday-app/static/js/787.f8c65c24.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.80cf6c23.css",
+    "static/css/main.fbb23552.css",
     "static/js/main.3b528917.js"
   ]
 }
