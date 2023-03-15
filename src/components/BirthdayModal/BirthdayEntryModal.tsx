@@ -1,68 +1,53 @@
 import { useState } from 'react';
 import { FormControl, TextField } from '@mui/material';
-import FormModal from './commons/FormModal';
+import FormModal from '../commons/FormModal';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DatePicker } from '@mui/lab';
-import { IEntry } from '../types/IEntry';
-import { uploadBirthdayList } from '../utils/maintainBirthdayList';
-import { useAuthState } from '../utils/auth';
 import { useSnackbar } from 'notistack';
 import moment from 'moment';
-import { ModalType } from '../types/ModalType';
+import { ModalType } from 'types/Modal';
+import { IEntry } from 'types/IEntry';
+import { useBirthdayListContext } from 'contexts/BirthdayListContext';
 
 type Props = {
   open: boolean;
   handleClose: () => void;
-  birthdayList: Array<IEntry>;
-  setBirthdayList: (list: Array<IEntry>) => void;
-  type: ModalType;
+  type: ModalType | undefined;
   entry?: IEntry;
 };
 
 const BirthdayEntryModal = (props: Props) => {
   const { enqueueSnackbar } = useSnackbar();
-
-  const { entry, type, open, handleClose, birthdayList, setBirthdayList } =
-    props;
-
+  const { birthdayList, addEntry, updateEntry } = useBirthdayListContext();
+  const { entry, type, open, handleClose } = props;
   const [fullname, setFullname] = useState(entry?.name ?? '');
   const [contact, setContact] = useState(entry?.contact ?? '');
   const [dob, setDOB] = useState<Date | null>(
     entry ? new Date(entry.dob) : null,
   );
 
-  const { user } = useAuthState();
+  const birthdayObject: IEntry = {
+    id: entry ? entry.id : birthdayList.length + 1,
+    name: fullname,
+    dob: moment(dob).format('MM/DD/YYYY') ?? '',
+    contact: contact,
+  };
 
   const handleSubmit = () => {
-    let birthdayObject: IEntry = {
-      id: entry ? entry.id : birthdayList.length + 1,
-      name: fullname,
-      dob: moment(dob).format('MM/DD/YYYY') ?? '',
-      contact: contact,
-    };
-
     switch (type) {
       case ModalType.ADD: {
-        addEntry(birthdayObject);
-        break;
+        return onAddEntry(birthdayObject);
       }
       case ModalType.UPDATE: {
-        updateEntry(birthdayObject);
-        break;
+        return onUpdateEntry(birthdayObject);
       }
-      default:
-        break;
     }
   };
 
-  const addEntry = (addedEntry: any) => {
-    let newList = [...birthdayList];
-    newList.push(addedEntry);
-    setBirthdayList(newList);
-
+  const onAddEntry = (addedEntry: any) => {
     try {
-      uploadBirthdayList(newList, user);
+      addEntry(addedEntry);
       enqueueSnackbar('Imported list successfully.', {
         variant: 'success',
       });
@@ -73,14 +58,13 @@ const BirthdayEntryModal = (props: Props) => {
     onCloseModal();
   };
 
-  const updateEntry = (addedEntry: any) => {
-    let newList = [...birthdayList];
-
-    entry && newList.splice(birthdayList.indexOf(entry), 1, addedEntry);
-    setBirthdayList(newList);
+  const onUpdateEntry = (addedEntry: any) => {
+    if (!entry) {
+      return;
+    }
 
     try {
-      uploadBirthdayList(newList, user);
+      updateEntry(entry, addedEntry);
       enqueueSnackbar('Updated entry successfully.', {
         variant: 'success',
       });
