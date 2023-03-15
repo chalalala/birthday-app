@@ -16,6 +16,7 @@ import { IEntry } from '../types/IEntry';
 import { uploadBirthdayList } from '../utils/birthdayList';
 import moment from 'moment';
 import { IEvent } from '../types/IEvent';
+import { generateId } from 'utils/uid';
 
 interface BirthdayListContextValue {
   birthdayList: IEntry[];
@@ -53,7 +54,7 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
   const addEntry = useCallback(
     (addedRecords: Array<IEvent>) => {
       const addedEntries: IEntry[] = addedRecords.map((event: IEvent) => ({
-        id: birthdayList.length,
+        id: generateId(),
         name: event.Subject,
         dob: moment(event.StartTime).format('MM/DD/YYYY'),
       }));
