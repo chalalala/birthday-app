@@ -9,6 +9,7 @@ import moment from 'moment';
 import { ModalType } from 'types/Modal';
 import { IEntry } from 'types/IEntry';
 import { useBirthdayListContext } from 'contexts/BirthdayListContext';
+import { generateId } from 'utils/uid';
 
 type Props = {
   open: boolean;
@@ -19,7 +20,7 @@ type Props = {
 
 const BirthdayEntryModal = (props: Props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { birthdayList, addEntry, updateEntry } = useBirthdayListContext();
+  const { addEntry, updateEntry } = useBirthdayListContext();
   const { entry, type, open, handleClose } = props;
   const [fullname, setFullname] = useState(entry?.name ?? '');
   const [contact, setContact] = useState(entry?.contact ?? '');
@@ -28,7 +29,7 @@ const BirthdayEntryModal = (props: Props) => {
   );
 
   const birthdayObject: IEntry = {
-    id: entry ? entry.id : birthdayList.length + 1,
+    id: entry ? entry.id : generateId(),
     name: fullname,
     dob: moment(dob).format('MM/DD/YYYY') ?? '',
     contact: contact,
