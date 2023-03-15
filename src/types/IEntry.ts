@@ -6,6 +6,7 @@ export interface IEntry {
 }
 
 export const entryFields = {
+  id: 'ID',
   name: 'Name',
   dob: 'DOB',
   contact: 'Contact',

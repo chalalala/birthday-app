@@ -1,14 +1,14 @@
+import { usePageListContext } from 'contexts/PageListContext';
 import React from 'react';
+import { ModalType } from 'types/Modal';
 
 type Props = {
   title?: string;
-  handleOpenAdd: () => void;
-  handleOpenImport: () => void;
-  exportData: () => void;
 };
 
 export const BirthdayToolbar = (props: Props) => {
-  const { title, handleOpenAdd, handleOpenImport, exportData } = props;
+  const { title } = props;
+  const { onOpen, exportData } = usePageListContext();
   const justifyClass = title ? 'justify-space-between' : 'justify-flex-end';
 
   return (
@@ -16,7 +16,7 @@ export const BirthdayToolbar = (props: Props) => {
       {title && <h1 className="birthday-toolbar__title">{title}</h1>}
       <div className="flex birthday-toolbar__actions">
         <button
-          onClick={handleOpenImport}
+          onClick={() => onOpen(ModalType.IMPORT)}
           className="text-button"
         >
           Import
@@ -28,7 +28,7 @@ export const BirthdayToolbar = (props: Props) => {
           Export
         </button>
         <button
-          onClick={handleOpenAdd}
+          onClick={() => onOpen(ModalType.ADD)}
           className="primary-button birthday-toolbar__button"
         >
           Add Entry

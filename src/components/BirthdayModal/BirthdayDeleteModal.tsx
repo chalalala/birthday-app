@@ -1,7 +1,7 @@
 import React from 'react';
 import { DialogContentText } from '@mui/material';
-import FormModal from './commons/FormModal';
-import { IEntry } from '../types/IEntry';
+import { IEntry } from 'types/IEntry';
+import FormModal from 'components/commons/FormModal';
 
 interface Props {
   open: boolean;
@@ -10,7 +10,7 @@ interface Props {
   entry?: IEntry;
 }
 
-export const WarningModal = (props: Props) => {
+export const BirthdayDeleteModal = (props: Props) => {
   const { open, handleClose, handleSubmit, entry } = props;
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DialogContentText, FormControl } from '@mui/material';
-import FormModal from './commons/FormModal';
+import FormModal from 'components/commons/FormModal';
 
 interface Props {
   open: boolean;

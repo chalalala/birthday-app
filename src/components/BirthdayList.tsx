@@ -10,16 +10,13 @@ import moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { entryFields, IEntry } from '../types/IEntry';
-import { ModalType } from '../types/ModalType';
+import { ModalType } from '../types/Modal';
+import { usePageListContext } from 'contexts/PageListContext';
+import { useBirthdayListContext } from 'contexts/BirthdayListContext';
 
-interface Props {
-  birthdayList: Array<IEntry>;
-  handleOpenUpdate: Function;
-}
-
-export default function BirthdayList(props: Props) {
-  const { birthdayList, handleOpenUpdate } = props;
-
+export default function BirthdayList() {
+  const { birthdayList } = useBirthdayListContext();
+  const { onOpen } = usePageListContext();
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
 
@@ -71,14 +68,14 @@ export default function BirthdayList(props: Props) {
                   })}
                   <TableCell size="small">
                     <IconButton
-                      onClick={() => handleOpenUpdate(ModalType.UPDATE, entry)}
+                      onClick={() => onOpen(ModalType.UPDATE, entry)}
                       aria-label="update"
                     >
                       <EditIcon />
                     </IconButton>
 
                     <IconButton
-                      onClick={() => handleOpenUpdate(ModalType.WARNING, entry)}
+                      onClick={() => onOpen(ModalType.WARNING, entry)}
                       aria-label="update"
                     >
                       <DeleteIcon />
