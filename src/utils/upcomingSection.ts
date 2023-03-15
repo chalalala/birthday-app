@@ -13,7 +13,9 @@ export const getUpcomingBirthdayList = (birthdayList: IEntry[]) => {
   const endDate = moment().add(RANGE_OF_UPCOMING_BIRTHDAYS, 'day');
 
   const upcomingList = birthdayList.filter((item) =>
-    moment(item.dob, 'MM/DD/YYYY').isBetween(startDate, endDate, 'day', '[]'),
+    moment(item.dob, 'MM/DD/YYYY')
+      .year(startDate.year())
+      .isBetween(startDate, endDate, 'day', '[]'),
   ) as IEntry[];
 
   return upcomingList.sort((a, b) => getDiffDate(a.dob, b.dob));
