@@ -1,8 +1,8 @@
-import { IEntry } from '../types/IEntry';
-import '../styles/components/_birthdayCard.scss';
+import { IEntry } from 'types/IEntry';
 import moment from 'moment';
-import { getUpcomingDateMessage } from '../utils/upcomingSection';
-import { DATE_FORMAT, getDiffDate } from '../utils/date';
+import { getUpcomingDateMessage } from 'utils/upcomingSection';
+import { DATE_FORMAT, getDiffDate } from 'utils/date';
+import 'styles/components/_birthdayCard.scss';
 
 interface IProps {
   birthday: IEntry;
