@@ -83,6 +83,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
       enqueueSnackbar('Imported list successfully.', {
         variant: 'success',
       });
+      onClose();
     } catch (e: any) {
       enqueueSnackbar(e.message, { variant: 'error' });
     }
