@@ -1,7 +1,7 @@
 import Layout from '../components/commons/Layout';
 import ProtectedPage from '../components/commons/ProtectedRoute';
-import BirthdayList from '../components/BirthdayList';
-import { BirthdayToolbar } from '../components/BirthdayToolbar';
+import BirthdayList from '../components/list/BirthdayList';
+import { BirthdayToolbar } from '../components/calendar/BirthdayToolbar';
 import { PageListContextProvider } from '../contexts/PageListContext';
 import { ListModal } from 'components/list/ListModal';
 

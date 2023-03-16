@@ -9,8 +9,8 @@ import {
 } from '@syncfusion/ej2-react-schedule';
 import React, { useState } from 'react';
 import '../styles/components/_calendar.scss';
-import { useBirthdayListContext } from '../contexts/BirthdayListContext';
-import { createEventObject } from '../utils/calendarEvent';
+import { useBirthdayListContext } from '../../contexts/BirthdayListContext';
+import { createEventObject } from '../../utils/calendarEvent';
 
 export default function BirthdayCalendar() {
   const { birthdayList, addEntry, deleteEntry } = useBirthdayListContext();
