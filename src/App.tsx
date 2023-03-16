@@ -1,6 +1,6 @@
 import 'material-icons/iconfont/material-icons.css';
 import { SnackbarProvider } from 'notistack';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import ListPage from './pages/list';
 import CalendarPage from './pages/calendar';
 import LoginPage from './pages/login';
@@ -18,7 +18,7 @@ function App() {
           maxSnack={3}
           autoHideDuration={2000}
         >
-          <Router basename="birthday-app">
+          <Router>
             <Routes>
               <Route
                 path={PATH.index}
