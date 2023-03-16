@@ -19,8 +19,13 @@ import { IEvent } from '../types/IEvent';
 import { generateId } from 'utils/uid';
 
 interface BirthdayListContextValue {
+  // States
   birthdayList: IEntry[];
+  searchQuery: string;
+
+  // Actions
   setBirthdayList: React.Dispatch<React.SetStateAction<IEntry[]>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   addEntry: (addedRecords: Array<IEvent>) => void;
   deleteEntry: (deletedRecords: Array<IEvent>) => void;
   updateEntry: (currentEntry: IEntry, updatedEntry: IEntry) => void;
@@ -37,6 +42,7 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
 }) => {
   const { isAuthenticated, user } = useAuthState();
   const [birthdayList, setBirthdayList] = useState<IEntry[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const getBirthdayList = useCallback(async () => {
     if (!isAuthenticated) {
@@ -102,14 +108,16 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
     () => ({
       // States
       birthdayList,
+      searchQuery,
 
       // Actions
       setBirthdayList,
+      setSearchQuery,
       addEntry,
       deleteEntry,
       updateEntry,
     }),
-    [birthdayList, addEntry, deleteEntry, updateEntry],
+    [birthdayList, searchQuery, addEntry, deleteEntry, updateEntry],
   );
 
   return (

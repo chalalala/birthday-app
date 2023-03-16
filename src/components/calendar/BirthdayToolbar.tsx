@@ -1,5 +1,7 @@
+import { Search } from '@mui/icons-material';
+import { InputAdornment, Stack, TextField } from '@mui/material';
+import { useBirthdayListContext } from 'contexts/BirthdayListContext';
 import { usePageListContext } from 'contexts/PageListContext';
-import React from 'react';
 import { ModalType } from 'types/Modal';
 
 type Props = {
@@ -9,12 +11,38 @@ type Props = {
 export const BirthdayToolbar = (props: Props) => {
   const { title } = props;
   const { onOpen, exportData } = usePageListContext();
-  const justifyClass = title ? 'justify-space-between' : 'justify-flex-end';
+  const { setSearchQuery } = useBirthdayListContext();
 
   return (
-    <div className={`flex ${justifyClass} birthday-toolbar`}>
-      {title && <h1 className="birthday-toolbar__title">{title}</h1>}
-      <div className="flex birthday-toolbar__actions">
+    <Stack
+      direction="row"
+      justifyContent={title ? 'space-between' : 'flex-end'}
+      className="birthday-toolbar"
+    >
+      <Stack
+        direction="row"
+        spacing={3}
+      >
+        {title && <h1 className="birthday-toolbar__title">{title}</h1>}
+        <TextField
+          type="search"
+          placeholder="Search by Name"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          variant="standard"
+          onChange={(event) => setSearchQuery(event.target.value)}
+        />
+      </Stack>
+
+      <Stack
+        direction="row"
+        className="birthday-toolbar__actions"
+      >
         <button
           onClick={() => onOpen(ModalType.IMPORT)}
           className="text-button"
@@ -33,7 +61,7 @@ export const BirthdayToolbar = (props: Props) => {
         >
           Add Entry
         </button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 };

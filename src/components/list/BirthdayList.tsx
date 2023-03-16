@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { IconButton, Paper, TableFooter, TablePagination } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,12 +13,24 @@ import { entryFields, IEntry } from 'types/IEntry';
 import { ModalType } from 'types/Modal';
 import { usePageListContext } from 'contexts/PageListContext';
 import { useBirthdayListContext } from 'contexts/BirthdayListContext';
+import { useDebounce } from 'hooks/useDebounce';
 
 export default function BirthdayList() {
-  const { birthdayList } = useBirthdayListContext();
+  const { birthdayList, searchQuery } = useBirthdayListContext();
   const { onOpen } = usePageListContext();
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [page, setPage] = React.useState(0);
+  const debouncedSearchTerm = useDebounce<string>(searchQuery);
+
+  const searchResults = useMemo(() => {
+    if (!debouncedSearchTerm) {
+      return birthdayList;
+    }
+
+    return birthdayList.filter((entry) =>
+      entry.name.includes(debouncedSearchTerm),
+    );
+  }, [debouncedSearchTerm, birthdayList]);
 
   const handleChangePage = (event: any, newPage: number) => {
     setPage(newPage);
@@ -57,8 +69,8 @@ export default function BirthdayList() {
         </TableHead>
 
         <TableBody>
-          {birthdayList.length > 0 &&
-            birthdayList
+          {searchResults.length > 0 &&
+            searchResults
               .slice(rowsPerPage * page, rowsPerPage * page + rowsPerPage)
               .map((entry: IEntry, index: number) => (
                 <TableRow key={entry.id}>
@@ -91,10 +103,10 @@ export default function BirthdayList() {
               rowsPerPageOptions={[
                 25,
                 { label: '50', value: 50 },
-                { label: 'All', value: birthdayList.length },
+                { label: 'All', value: searchResults.length },
               ]}
               colSpan={3}
-              count={birthdayList.length}
+              count={searchResults.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onPageChange={handleChangePage}
