@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FormControl, TextField } from '@mui/material';
-import FormModal from '../commons/FormModal';
+import FormModal from '../FormModal';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { DatePicker } from '@mui/lab';

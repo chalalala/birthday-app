@@ -9,8 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { entryFields, IEntry } from '../types/IEntry';
-import { ModalType } from '../types/Modal';
+import { entryFields, IEntry } from '../../types/IEntry';
+import { ModalType } from '../../types/Modal';
 import { usePageListContext } from 'contexts/PageListContext';
 import { useBirthdayListContext } from 'contexts/BirthdayListContext';
 

@@ -14,7 +14,8 @@ import { useAuthState } from 'utils/auth';
 import { uploadBirthdayList } from 'utils/birthdayList';
 import { useBirthdayListContext } from './BirthdayListContext';
 import * as XLSX from 'xlsx';
-import { IBirthdayModal } from 'components/BirthdayModal';
+import { IBirthdayModal } from 'components/commons/BirthdayModal';
+import { generateId } from 'utils/uid';
 
 type PageListContextValue = IBirthdayModal;
 
@@ -51,20 +52,22 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
 
     const reader = new FileReader();
-    let importedList = new Array<IEntry>();
 
     reader.onload = (e: any) => {
       const data = e.target.result;
       const workbook = XLSX.read(data, { type: 'array' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      importedList = XLSX.utils.sheet_to_json(worksheet);
+      const importedList: IEntry[] = XLSX.utils.sheet_to_json(worksheet);
+      const entries = importedList.map((item) => {
+        if (!item.id) {
+          item.id = generateId();
+        }
 
-      console.log(
-        '🚀 ~ file: list.tsx ~ line 93 ~ onFileUpload ~ importedList',
-        importedList,
-      );
-      setUploadingList(importedList);
+        return item;
+      });
+
+      setUploadingList(entries);
     };
 
     reader.readAsArrayBuffer(e.target.files[0]);
