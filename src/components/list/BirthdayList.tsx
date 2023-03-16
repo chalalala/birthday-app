@@ -17,7 +17,7 @@ import { useBirthdayListContext } from 'contexts/BirthdayListContext';
 export default function BirthdayList() {
   const { birthdayList } = useBirthdayListContext();
   const { onOpen } = usePageListContext();
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [page, setPage] = React.useState(0);
 
   const handleChangePage = (event: any, newPage: number) => {
@@ -88,7 +88,11 @@ export default function BirthdayList() {
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[
+                25,
+                { label: '50', value: 50 },
+                { label: 'All', value: birthdayList.length },
+              ]}
               colSpan={3}
               count={birthdayList.length}
               rowsPerPage={rowsPerPage}
