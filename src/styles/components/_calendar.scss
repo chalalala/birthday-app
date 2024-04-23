@@ -1,10 +1,107 @@
-.birthday-calendar {
-  .e-vertical-view .e-header-cells.e-current-day .e-header-date {
-    background-color: #e3165b;
-    border-radius: 50%;
-    color: white;
-    width: 22px;
-    height: 22px;
-    text-align: center;
+@import '../core/_variables.scss';
+@import '../mixins/_mq';
+
+.e-vertical-view .e-header-cells.e-current-day .e-header-date {
+  background-color: #e3165b;
+  border-radius: 50%;
+  color: white;
+  width: 22px;
+  height: 22px;
+  text-align: center;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0;
+}
+
+.fc .fc-scrollgrid {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.fc-theme-standard td:last-of-type {
+  border-bottom-right-radius: 5px;
+}
+
+.fc-theme-standard td:first-of-type {
+  border-bottom-left-radius: 5px;
+}
+
+.fc .fc-daygrid-day-frame:hover {
+  background-color: $purple8;
+}
+
+.fc-scrollgrid-sync-inner {
+  padding: 5px;
+}
+
+.fc-col-header-cell-cushion {
+  font-weight: 500;
+  font-size: 15px;
+  max-width: 40px;
+  text-align: center;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: $purple7;
+}
+
+.fc-h-event {
+  background-color: $purple0;
+  border-color: $purple0;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+  --fc-button-bg-color: transparent;
+  --fc-button-border-color: transparent;
+  --fc-button-hover-border-color: transparent;
+  --fc-button-active-bg-color: transparent;
+  --fc-button-hover-bg-color: $gray;
+  --fc-button-text-color: $black;
+
+  border: 1px solid var(--fc-border-color);
+  border-bottom: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: $lightgray;
+  min-height: 40px;
+  flex-wrap: wrap;
+
+  .fc-toolbar-chunk {
+    display: flex;
+
+    @include mq('tablet', 'min-width') {
+      height: 100%;
+    }
   }
+
+  .fc-button {
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: $gray;
+    }
+  }
+
+  .fc-button-primary:not(:disabled).fc-button-active {
+    color: $highlight;
+    border: none;
+  }
+
+  .fc-toolbar-title {
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+  }
+
+  .fc-toolbar-chunk:has(.fc-toolbar-title) {
+    flex: 1;
+    margin-left: 20px;
+  }
+}
+
+.fc-h-event .fc-event-title {
+  text-wrap: balance;
 }

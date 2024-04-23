@@ -5,6 +5,9 @@
 .flex-column {
   flex-direction: column;
 }
+.flex-1 {
+  flex: 1;
+}
 .align-center {
   align-items: center;
 }
@@ -17,11 +20,22 @@
 .justify-flex-end {
   justify-content: flex-end;
 }
+.max-w-full {
+  max-width: 100%;
+}
+.min-w-0 {
+  min-width: 0;
+}
+.min-h-screen {
+  min-height: 100vh;
+}
 
 // Page layout
 .page-content {
   padding: 30px;
   flex: 1;
+  max-width: 100%;
+  box-sizing: border-box;
 
   @include mq('tablet') {
     padding: 30px 10px;

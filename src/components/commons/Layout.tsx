@@ -11,12 +11,12 @@ export default function Layout(props: Props) {
   const { children, currentSite } = props;
 
   return (
-    <React.Fragment>
+    <div className="flex flex-column min-h-screen">
       <Header />
-      <div className="flex">
+      <div className="flex flex-1">
         <Sidebar currentSite={currentSite} />
         <div className="page-content">{children}</div>
       </div>
-    </React.Fragment>
+    </div>
   );
 }

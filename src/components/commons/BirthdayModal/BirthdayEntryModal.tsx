@@ -1,9 +1,6 @@
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FormControl, TextField } from '@mui/material';
 import FormModal from '../FormModal';
-import DateAdapter from '@mui/lab/AdapterMoment';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { DatePicker } from '@mui/lab';
 import { useSnackbar } from 'notistack';
 import moment from 'moment';
 import { ModalType } from 'types/Modal';
@@ -16,26 +13,32 @@ type Props = {
   handleClose: () => void;
   type: ModalType | undefined;
   entry?: IEntry;
+  selectedDate?: Date | null;
 };
 
-const BirthdayEntryModal = (props: Props) => {
+const BirthdayEntryModal: FC<Props> = ({
+  entry,
+  type,
+  open,
+  selectedDate = null,
+  handleClose,
+}) => {
   const { enqueueSnackbar } = useSnackbar();
   const { addEntry, updateEntry } = useBirthdayListContext();
-  const { entry, type, open, handleClose } = props;
   const [fullname, setFullname] = useState(entry?.name ?? '');
   const [contact, setContact] = useState(entry?.contact ?? '');
   const [dob, setDOB] = useState<Date | null>(
-    entry ? new Date(entry.dob) : null,
+    entry ? new Date(entry.dob) : selectedDate,
   );
 
-  const birthdayObject: IEntry = {
-    id: entry ? entry.id : generateId(),
-    name: fullname,
-    dob: moment(dob).format('MM/DD/YYYY') ?? '',
-    contact: contact,
-  };
-
   const handleSubmit = () => {
+    const birthdayObject: IEntry = {
+      id: entry ? entry.id : generateId(),
+      name: fullname,
+      dob: moment(dob).format('MM/DD/YYYY') ?? '',
+      contact: contact,
+    };
+
     switch (type) {
       case ModalType.ADD: {
         return onAddEntry(birthdayObject);
@@ -46,7 +49,7 @@ const BirthdayEntryModal = (props: Props) => {
     }
   };
 
-  const onAddEntry = (addedEntry: any) => {
+  const onAddEntry = (addedEntry: IEntry) => {
     try {
       addEntry(addedEntry);
       enqueueSnackbar('Imported list successfully.', {
@@ -59,7 +62,7 @@ const BirthdayEntryModal = (props: Props) => {
     onCloseModal();
   };
 
-  const onUpdateEntry = (addedEntry: any) => {
+  const onUpdateEntry = (addedEntry: IEntry) => {
     if (!entry) {
       return;
     }
@@ -103,21 +106,17 @@ const BirthdayEntryModal = (props: Props) => {
         variant="outlined"
       />
 
-      <FormControl
-        fullWidth
-        sx={{ mt: 2 }}
-      >
-        <LocalizationProvider dateAdapter={DateAdapter}>
-          <DatePicker
-            label="DOB"
-            value={dob}
-            onChange={(newValue) => {
-              setDOB(newValue);
-            }}
-            className="form__input"
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
+      <FormControl fullWidth>
+        <TextField
+          value={moment(dob).format('YYYY-MM-DD')}
+          onChange={(e) => setDOB(new Date(e.target.value))}
+          name="dob"
+          label="DOB"
+          type="date"
+          margin="normal"
+          fullWidth
+          variant="outlined"
+        />
       </FormControl>
 
       <TextField

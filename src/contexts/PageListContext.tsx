@@ -9,15 +9,22 @@ import {
   useState,
 } from 'react';
 import { IEntry } from 'types/IEntry';
-import { IOpenState, ModalType } from 'types/Modal';
+import { IModalState, ModalType } from 'types/Modal';
 import { useAuthState } from 'utils/auth';
 import { uploadBirthdayList } from 'utils/birthdayList';
 import { useBirthdayListContext } from './BirthdayListContext';
 import * as XLSX from 'xlsx';
-import { IBirthdayModal } from 'components/commons/BirthdayModal';
 import { generateId } from 'utils/uid';
 
-type PageListContextValue = IBirthdayModal;
+type PageListContextValue = {
+  modalState: IModalState;
+  onOpen: (type: ModalType, entry?: IEntry) => void;
+  onClose: () => void;
+  onFileUpload: (e: ChangeEvent<HTMLInputElement>) => void;
+  onFileSubmit: (e: SubmitEvent) => void;
+  onDelete: (entry: IEntry | undefined) => void;
+  exportData: () => void;
+};
 
 const PageListContext = createContext<PageListContextValue>({} as never);
 
@@ -29,7 +36,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
   const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuthState();
   const { birthdayList, setBirthdayList } = useBirthdayListContext();
-  const [open, setOpen] = useState<IOpenState>({
+  const [modalState, setModalState] = useState<IModalState>({
     show: false,
     type: undefined,
     entry: undefined,
@@ -37,11 +44,11 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
   const [uploadingList, setUploadingList] = useState<Array<IEntry>>([]);
 
   const onClose = () => {
-    setOpen({ show: false, type: undefined, entry: undefined });
+    setModalState({ show: false, type: undefined, entry: undefined });
   };
 
   const onOpen = (type: ModalType, entry?: IEntry) => {
-    setOpen({ show: true, type: type, entry: entry });
+    setModalState({ show: true, type: type, entry: entry });
   };
 
   const onFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +96,11 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
   };
 
-  const onDelete = (entry: IEntry) => {
+  const onDelete = (entry: IEntry | undefined) => {
+    if (!entry) {
+      return;
+    }
+
     const newList = birthdayList.filter((item) => item.id !== entry.id);
     setBirthdayList(newList);
 
@@ -124,7 +135,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
   };
 
   const contextValue: PageListContextValue = {
-    open,
+    modalState,
     onOpen,
     onClose,
     onFileSubmit,

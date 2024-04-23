@@ -2,6 +2,8 @@
 @import '../mixins/_mq';
 
 .calendar-page-container {
+  height: 100%;
+
   @include mq('tablet', 'min-width') {
     display: grid;
     grid-template-columns: 3fr 11fr;
