@@ -15,7 +15,6 @@ import { useAuthState } from '../utils/auth';
 import { IEntry } from '../types/IEntry';
 import { uploadBirthdayList } from '../utils/birthdayList';
 import moment from 'moment';
-import { IEvent } from '../types/IEvent';
 import { generateId } from 'utils/uid';
 
 interface BirthdayListContextValue {
@@ -26,8 +25,8 @@ interface BirthdayListContextValue {
   // Actions
   setBirthdayList: React.Dispatch<React.SetStateAction<IEntry[]>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  addEntry: (addedRecords: Array<IEvent>) => void;
-  deleteEntry: (deletedRecords: Array<IEvent>) => void;
+  addEntry: (addedRecords: IEntry | Array<IEntry>) => void;
+  deleteEntry: (deletedRecords: IEntry | Array<IEntry>) => void;
   updateEntry: (currentEntry: IEntry, updatedEntry: IEntry) => void;
 }
 
@@ -58,11 +57,14 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
   }, [isAuthenticated, user]);
 
   const addEntry = useCallback(
-    (addedRecords: Array<IEvent>) => {
-      const addedEntries: IEntry[] = addedRecords.map((event: IEvent) => ({
+    (addedRecords: IEntry | IEntry[]) => {
+      const entries = Array.isArray(addedRecords)
+        ? addedRecords
+        : [addedRecords];
+      const addedEntries = entries.map((event) => ({
+        ...event,
         id: generateId(),
-        name: event.Subject,
-        dob: moment(event.StartTime).format('MM/DD/YYYY'),
+        dob: moment(event.dob).format('MM/DD/YYYY'),
       }));
       const newList = [...birthdayList, ...addedEntries];
 
@@ -73,10 +75,13 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
   );
 
   const deleteEntry = useCallback(
-    (deletedRecords: Array<IEvent>) => {
+    (deletedRecords: IEntry | Array<IEntry>) => {
       let newList = [...birthdayList];
-      deletedRecords.forEach((record) => {
-        newList = newList.filter((entry, index) => index !== record.Id);
+      const entries = Array.isArray(deletedRecords)
+        ? deletedRecords
+        : [deletedRecords];
+      entries.forEach((record) => {
+        newList = newList.filter((entry, index) => entry.id !== record.id);
       });
 
       setBirthdayList(newList);

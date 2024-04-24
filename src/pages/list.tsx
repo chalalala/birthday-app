@@ -3,7 +3,7 @@ import ProtectedPage from '../components/commons/ProtectedRoute';
 import BirthdayList from '../components/list/BirthdayList';
 import { BirthdayToolbar } from '../components/calendar/BirthdayToolbar';
 import { PageListContextProvider } from '../contexts/PageListContext';
-import { ListModal } from 'components/list/ListModal';
+import { BirthdayModal } from 'components/commons/BirthdayModal';
 
 export default function ListPage() {
   return (
@@ -12,7 +12,7 @@ export default function ListPage() {
         <Layout currentSite="list">
           <BirthdayToolbar title="Birthday List" />
           <BirthdayList />
-          <ListModal />
+          <BirthdayModal />
         </Layout>
       </ProtectedPage>
     </PageListContextProvider>

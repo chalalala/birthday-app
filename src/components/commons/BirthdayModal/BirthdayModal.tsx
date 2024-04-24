@@ -1,36 +1,21 @@
-import { ChangeEvent } from 'react';
-import { IEntry } from 'types/IEntry';
-import { IOpenState, ModalType } from 'types/Modal';
+import { ModalType } from 'types/Modal';
 import { BirthdayDeleteModal } from './BirthdayDeleteModal';
 import BirthdayEntryModal from './BirthdayEntryModal';
 import { BirthdayImportModal } from './BirthdayImportModal';
+import { usePageListContext } from 'contexts/PageListContext';
 
-export interface IBirthdayModal {
-  open: IOpenState;
-  onOpen: (type: ModalType, entry?: IEntry) => void;
-  onClose: () => void;
-  onFileUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-  onFileSubmit: (e: SubmitEvent) => void;
-  onDelete: (entry: IEntry) => void;
-  exportData: () => void;
-}
-
-export const BirthdayModal = ({
-  open,
-  onClose,
-  onFileSubmit,
-  onFileUpload,
-  onDelete,
-}: IBirthdayModal) => {
-  if (!open.show) {
+export const BirthdayModal = () => {
+  const { modalState, onClose, onFileSubmit, onFileUpload, onDelete } =
+    usePageListContext();
+  if (!modalState.show) {
     return null;
   }
 
-  switch (open.type) {
+  switch (modalState.type) {
     case ModalType.IMPORT: {
       return (
         <BirthdayImportModal
-          open={open.show}
+          open={modalState.show}
           handleClose={onClose}
           onFileSubmit={onFileSubmit}
           onFileUpload={onFileUpload}
@@ -40,20 +25,20 @@ export const BirthdayModal = ({
     case ModalType.WARNING: {
       return (
         <BirthdayDeleteModal
-          open={open.show}
+          open={modalState.show}
           handleClose={onClose}
           handleSubmit={onDelete}
-          entry={open.entry}
+          entry={modalState.entry}
         />
       );
     }
     default: {
       return (
         <BirthdayEntryModal
-          open={open.show}
+          open={modalState.show}
           handleClose={onClose}
-          type={open.type}
-          entry={open.entry}
+          type={modalState.type}
+          entry={modalState.entry}
         />
       );
     }

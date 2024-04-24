@@ -7,7 +7,7 @@ export const enum ModalType {
   WARNING = 'WARNING',
 }
 
-export interface IOpenState {
+export interface IModalState {
   show: boolean;
   type: ModalType | undefined;
   entry: IEntry | undefined;

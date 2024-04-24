@@ -5,10 +5,10 @@ import ListPage from './pages/list';
 import CalendarPage from './pages/calendar';
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
-import './styles/main.scss';
 import { PATH } from './constants/path';
 import { BirthdayListContextProvider } from './contexts/BirthdayListContext';
 import { AuthContextProvider } from './contexts/AuthContext';
+import './styles/main.scss';
 
 function App() {
   return (

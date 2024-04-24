@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { DialogContentText } from '@mui/material';
 import { IEntry } from 'types/IEntry';
 import FormModal from 'components/commons/FormModal';
 
 interface Props {
   open: boolean;
-  handleClose: Function;
-  handleSubmit: Function;
   entry?: IEntry;
+  handleClose: () => void;
+  handleSubmit: (entry: IEntry | undefined) => void;
 }
 
-export const BirthdayDeleteModal = (props: Props) => {
-  const { open, handleClose, handleSubmit, entry } = props;
-
+export const BirthdayDeleteModal: FC<Props> = ({
+  open,
+  handleClose,
+  handleSubmit,
+  entry,
+}) => {
   return (
     <FormModal
       title="Delete entry?"
