@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/birthday-app/static/css/main.fbb23552.css",
-    "main.js": "/birthday-app/static/js/main.439c9f5b.js",
-    "static/js/787.f8c65c24.chunk.js": "/birthday-app/static/js/787.f8c65c24.chunk.js",
+    "main.css": "/birthday-app/static/css/main.a99e1ca3.css",
+    "main.js": "/birthday-app/static/js/main.ce24a34e.js",
+    "static/js/787.7665d5f8.chunk.js": "/birthday-app/static/js/787.7665d5f8.chunk.js",
     "static/media/material-icons-two-tone.woff": "/birthday-app/static/media/material-icons-two-tone.04411cba9583fb0df01f.woff",
     "static/media/material-icons-two-tone.woff2": "/birthday-app/static/media/material-icons-two-tone.a70ec3e73fd410cdb178.woff2",
     "static/media/material-icons-round.woff": "/birthday-app/static/media/material-icons-round.6289913a298e816100f5.woff",
@@ -15,12 +15,12 @@
     "static/media/material-icons.woff2": "/birthday-app/static/media/material-icons.6c307c85ae675678f41e.woff2",
     "static/media/background.png": "/birthday-app/static/media/background.3ff5c1efacd326a63c9c.png",
     "index.html": "/birthday-app/index.html",
-    "main.fbb23552.css.map": "/birthday-app/static/css/main.fbb23552.css.map",
-    "main.439c9f5b.js.map": "/birthday-app/static/js/main.439c9f5b.js.map",
-    "787.f8c65c24.chunk.js.map": "/birthday-app/static/js/787.f8c65c24.chunk.js.map"
+    "main.a99e1ca3.css.map": "/birthday-app/static/css/main.a99e1ca3.css.map",
+    "main.ce24a34e.js.map": "/birthday-app/static/js/main.ce24a34e.js.map",
+    "787.7665d5f8.chunk.js.map": "/birthday-app/static/js/787.7665d5f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fbb23552.css",
-    "static/js/main.439c9f5b.js"
+    "static/css/main.a99e1ca3.css",
+    "static/js/main.ce24a34e.js"
   ]
 }
