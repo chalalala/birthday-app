@@ -12,10 +12,11 @@ type Props = {
   children: any;
   title: string;
   open: boolean;
-  handleClose: () => void;
   submitText?: string;
   customSubmitButtonStyle?: React.CSSProperties;
+  handleClose: () => void;
   handleSubmit: (e: any) => void;
+  handleDelete?: () => void;
 };
 
 const FormModal: React.FC<Props> = ({ submitText = 'Submit', ...props }) => {
@@ -25,6 +26,7 @@ const FormModal: React.FC<Props> = ({ submitText = 'Submit', ...props }) => {
     open,
     handleClose,
     handleSubmit,
+    handleDelete,
     customSubmitButtonStyle,
   } = props;
 
@@ -47,12 +49,21 @@ const FormModal: React.FC<Props> = ({ submitText = 'Submit', ...props }) => {
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <button
-          className="secondary-button"
-          onClick={handleClose}
-        >
-          Cancel
-        </button>
+        {handleDelete ? (
+          <button
+            className="error-button"
+            onClick={handleDelete}
+          >
+            Delete
+          </button>
+        ) : (
+          <button
+            className="secondary-button"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
+        )}
         <button
           className="primary-button"
           onClick={handleSubmit}
