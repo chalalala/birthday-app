@@ -24,7 +24,7 @@ const BirthdayEntryModal: FC<Props> = ({
   handleClose,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { addEntry, updateEntry } = useBirthdayListContext();
+  const { addEntry, updateEntry, deleteEntry } = useBirthdayListContext();
   const [fullname, setFullname] = useState(entry?.name ?? '');
   const [contact, setContact] = useState(entry?.contact ?? '');
   const [dob, setDOB] = useState<Date | null>(
@@ -92,6 +92,14 @@ const BirthdayEntryModal: FC<Props> = ({
       open={open}
       handleClose={handleClose}
       handleSubmit={handleSubmit}
+      handleDelete={
+        entry
+          ? () => {
+              deleteEntry(entry);
+              handleClose();
+            }
+          : undefined
+      }
     >
       {/* <DialogContentText>To subscribe to this website, please enter your email address here. We will send updates occasionally.</DialogContentText> */}
       <TextField

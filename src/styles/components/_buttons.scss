@@ -1,5 +1,4 @@
-.primary-button {
-  background-color: $purple1;
+@mixin solid-button {
   border: none;
   border-radius: 4px;
   color: white;
@@ -9,6 +8,15 @@
   line-height: 19px;
   text-transform: capitalize;
   padding: 10px;
+}
+.primary-button {
+  @include solid-button;
+  background-color: $purple1;
+}
+
+.error-button {
+  @include solid-button;
+  background-color: $red;
 }
 
 .secondary-button {
