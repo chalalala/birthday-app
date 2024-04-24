@@ -3,8 +3,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
 } from '@mui/material';
 import React from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
   children: any;
@@ -31,6 +33,17 @@ const FormModal: React.FC<Props> = ({ submitText = 'Submit', ...props }) => {
       open={open}
       onClose={handleClose}
     >
+      <IconButton
+        aria-label="close"
+        onClick={handleClose}
+        sx={{
+          position: 'absolute',
+          right: 8,
+          top: 8,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
