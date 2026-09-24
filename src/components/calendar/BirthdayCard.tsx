@@ -1,7 +1,7 @@
 import { IEntry } from 'types/IEntry';
 import moment from 'moment';
 import { getUpcomingDateMessage } from 'utils/upcomingSection';
-import { DATE_FORMAT, getDiffDate } from 'utils/date';
+import { DATE_FORMAT, getDaysUntilBirthday } from 'utils/date';
 import 'styles/components/_birthdayCard.scss';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export const BirthdayCard = ({ birthday }: IProps) => {
-  const daysLeft = getDiffDate(birthday.dob, Date.now());
+  const daysLeft = getDaysUntilBirthday(birthday.dob);
 
   return (
     <div className="card-container">

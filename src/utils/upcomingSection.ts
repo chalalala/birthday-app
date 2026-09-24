@@ -1,24 +1,25 @@
 import moment from 'moment';
 import { IEntry } from '../types/IEntry';
-import { getDiffDate } from './date';
+import { getDaysUntilBirthday } from './date';
 
 const RANGE_OF_UPCOMING_BIRTHDAYS = 7;
 
-export const getUpcomingBirthdayList = (birthdayList: IEntry[]) => {
+export const getUpcomingBirthdayList = (
+  birthdayList: IEntry[],
+  today: moment.MomentInput = moment(),
+) => {
   if (!birthdayList.length) {
     return [];
   }
 
-  const startDate = moment();
-  const endDate = moment().add(RANGE_OF_UPCOMING_BIRTHDAYS, 'day');
-
-  const upcomingList = birthdayList.filter((item) =>
-    moment(item.dob, 'MM/DD/YYYY')
-      .year(startDate.year())
-      .isBetween(startDate, endDate, 'day', '[]'),
-  ) as IEntry[];
-
-  return upcomingList.sort((a, b) => getDiffDate(a.dob, b.dob));
+  return birthdayList
+    .map((item) => ({
+      item,
+      daysLeft: getDaysUntilBirthday(item.dob, today),
+    }))
+    .filter(({ daysLeft }) => daysLeft <= RANGE_OF_UPCOMING_BIRTHDAYS)
+    .sort((a, b) => a.daysLeft - b.daysLeft)
+    .map(({ item }) => item);
 };
 
 export const getUpcomingDateMessage = (daysLeft: number) => {
