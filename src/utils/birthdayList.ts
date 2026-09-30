@@ -6,11 +6,6 @@ export const uploadBirthdayList = async (
   birthdayList: Array<IEntry>,
   user: any,
 ) => {
-  await setDoc(doc(db, user.email, 'birthday-list'), { birthdayList })
-    .then(() => {
-      console.log('Uploaded ', birthdayList);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+  // Let errors reach the caller so it can tell the user the save failed
+  await setDoc(doc(db, user.email, 'birthday-list'), { birthdayList });
 };

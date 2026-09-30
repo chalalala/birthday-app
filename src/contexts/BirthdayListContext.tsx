@@ -25,9 +25,9 @@ interface BirthdayListContextValue {
   // Actions
   setBirthdayList: React.Dispatch<React.SetStateAction<IEntry[]>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  addEntry: (addedRecords: IEntry | Array<IEntry>) => void;
-  deleteEntry: (deletedRecords: IEntry | Array<IEntry>) => void;
-  updateEntry: (currentEntry: IEntry, updatedEntry: IEntry) => void;
+  addEntry: (addedRecords: IEntry | Array<IEntry>) => Promise<void>;
+  deleteEntry: (deletedRecords: IEntry | Array<IEntry>) => Promise<void>;
+  updateEntry: (currentEntry: IEntry, updatedEntry: IEntry) => Promise<void>;
 }
 
 const BirthdayListContext = createContext<BirthdayListContextValue>(
@@ -57,7 +57,7 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
   }, [isAuthenticated, user]);
 
   const addEntry = useCallback(
-    (addedRecords: IEntry | IEntry[]) => {
+    async (addedRecords: IEntry | IEntry[]) => {
       const entries = Array.isArray(addedRecords)
         ? addedRecords
         : [addedRecords];
@@ -69,13 +69,13 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
       const newList = [...birthdayList, ...addedEntries];
 
       setBirthdayList(newList);
-      uploadBirthdayList(newList, user);
+      await uploadBirthdayList(newList, user);
     },
     [birthdayList, user],
   );
 
   const deleteEntry = useCallback(
-    (deletedRecords: IEntry | Array<IEntry>) => {
+    async (deletedRecords: IEntry | Array<IEntry>) => {
       let newList = [...birthdayList];
       const entries = Array.isArray(deletedRecords)
         ? deletedRecords
@@ -85,13 +85,13 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
       });
 
       setBirthdayList(newList);
-      uploadBirthdayList(newList, user);
+      await uploadBirthdayList(newList, user);
     },
     [birthdayList, user],
   );
 
   const updateEntry = useCallback(
-    (currentEntry: IEntry, updatedEntry: IEntry) => {
+    async (currentEntry: IEntry, updatedEntry: IEntry) => {
       if (!currentEntry) {
         return;
       }
@@ -100,7 +100,7 @@ export const BirthdayListContextProvider: FC<PropsWithChildren<unknown>> = ({
       newList.splice(birthdayList.indexOf(currentEntry), 1, updatedEntry);
 
       setBirthdayList(newList);
-      uploadBirthdayList(newList, user);
+      await uploadBirthdayList(newList, user);
     },
     [birthdayList, user],
   );

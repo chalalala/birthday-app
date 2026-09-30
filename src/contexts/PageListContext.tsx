@@ -15,15 +15,20 @@ import { uploadBirthdayList } from 'utils/birthdayList';
 import { useBirthdayListContext } from './BirthdayListContext';
 import * as XLSX from 'xlsx';
 import { generateId } from 'utils/uid';
+import {
+  buildBirthdayCalendar,
+  downloadCalendarFile,
+} from 'utils/calendarExport';
 
 type PageListContextValue = {
   modalState: IModalState;
   onOpen: (type: ModalType, entry?: IEntry) => void;
   onClose: () => void;
   onFileUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-  onFileSubmit: (e: SubmitEvent) => void;
-  onDelete: (entry: IEntry | undefined) => void;
+  onFileSubmit: (e: SubmitEvent) => Promise<void>;
+  onDelete: (entry: IEntry | undefined) => Promise<void>;
   exportData: () => void;
+  exportCalendar: () => void;
 };
 
 const PageListContext = createContext<PageListContextValue>({} as never);
@@ -80,13 +85,13 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     reader.readAsArrayBuffer(e.target.files[0]);
   };
 
-  const onFileSubmit = (e: SubmitEvent) => {
+  const onFileSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
     setBirthdayList(uploadingList);
 
     try {
-      uploadBirthdayList(uploadingList, user);
+      await uploadBirthdayList(uploadingList, user);
       enqueueSnackbar('Imported list successfully.', {
         variant: 'success',
       });
@@ -96,7 +101,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
   };
 
-  const onDelete = (entry: IEntry | undefined) => {
+  const onDelete = async (entry: IEntry | undefined) => {
     if (!entry) {
       return;
     }
@@ -105,7 +110,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     setBirthdayList(newList);
 
     try {
-      uploadBirthdayList(newList, user);
+      await uploadBirthdayList(newList, user);
       enqueueSnackbar('Deleted entry successfully.', {
         variant: 'success',
       });
@@ -134,6 +139,32 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
   };
 
+  const exportCalendar = () => {
+    try {
+      const { content, exported, skipped } =
+        buildBirthdayCalendar(birthdayList);
+
+      if (!exported) {
+        enqueueSnackbar('No birthdays to add to a calendar yet.', {
+          variant: 'info',
+        });
+        return;
+      }
+
+      downloadCalendarFile(content, 'Birthdays.ics');
+
+      const skippedMessage = skipped
+        ? ` Skipped ${skipped} with an unreadable date.`
+        : '';
+      enqueueSnackbar(
+        `Exported ${exported} birthdays. Open the file to add them to your calendar.${skippedMessage}`,
+        { variant: skipped ? 'warning' : 'success' },
+      );
+    } catch (e: any) {
+      enqueueSnackbar(e.message, { variant: 'error' });
+    }
+  };
+
   const contextValue: PageListContextValue = {
     modalState,
     onOpen,
@@ -142,6 +173,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     onFileUpload,
     onDelete,
     exportData,
+    exportCalendar,
   };
 
   return (

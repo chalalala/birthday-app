@@ -10,7 +10,7 @@ type Props = {
 
 export const BirthdayToolbar = (props: Props) => {
   const { title } = props;
-  const { onOpen, exportData } = usePageListContext();
+  const { onOpen, exportData, exportCalendar } = usePageListContext();
   const { setSearchQuery } = useBirthdayListContext();
 
   return (
@@ -54,6 +54,13 @@ export const BirthdayToolbar = (props: Props) => {
           className="text-button"
         >
           Export
+        </button>
+        <button
+          onClick={exportCalendar}
+          className="text-button"
+          title="Download a calendar file with a yearly event for each birthday"
+        >
+          Add to Calendar
         </button>
         <button
           onClick={() => onOpen(ModalType.ADD)}
