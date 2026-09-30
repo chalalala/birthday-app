@@ -49,10 +49,10 @@ const BirthdayEntryModal: FC<Props> = ({
     }
   };
 
-  const onAddEntry = (addedEntry: IEntry) => {
+  const onAddEntry = async (addedEntry: IEntry) => {
     try {
-      addEntry(addedEntry);
-      enqueueSnackbar('Imported list successfully.', {
+      await addEntry(addedEntry);
+      enqueueSnackbar('Added entry successfully.', {
         variant: 'success',
       });
     } catch (e: any) {
@@ -62,13 +62,13 @@ const BirthdayEntryModal: FC<Props> = ({
     onCloseModal();
   };
 
-  const onUpdateEntry = (addedEntry: IEntry) => {
+  const onUpdateEntry = async (addedEntry: IEntry) => {
     if (!entry) {
       return;
     }
 
     try {
-      updateEntry(entry, addedEntry);
+      await updateEntry(entry, addedEntry);
       enqueueSnackbar('Updated entry successfully.', {
         variant: 'success',
       });
@@ -94,8 +94,16 @@ const BirthdayEntryModal: FC<Props> = ({
       handleSubmit={handleSubmit}
       handleDelete={
         entry
-          ? () => {
-              deleteEntry(entry);
+          ? async () => {
+              try {
+                await deleteEntry(entry);
+                enqueueSnackbar('Deleted entry successfully.', {
+                  variant: 'success',
+                });
+              } catch (e: any) {
+                enqueueSnackbar(e.message, { variant: 'error' });
+              }
+
               handleClose();
             }
           : undefined

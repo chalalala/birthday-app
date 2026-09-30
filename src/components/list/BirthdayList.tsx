@@ -27,8 +27,12 @@ export default function BirthdayList() {
       return birthdayList;
     }
 
+    const query = debouncedSearchTerm.toLowerCase();
+
     return birthdayList.filter((entry) =>
-      entry.name.includes(debouncedSearchTerm),
+      String(entry.name ?? '')
+        .toLowerCase()
+        .includes(query),
     );
   }, [debouncedSearchTerm, birthdayList]);
 

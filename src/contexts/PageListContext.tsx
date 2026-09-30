@@ -25,8 +25,8 @@ type PageListContextValue = {
   onOpen: (type: ModalType, entry?: IEntry) => void;
   onClose: () => void;
   onFileUpload: (e: ChangeEvent<HTMLInputElement>) => void;
-  onFileSubmit: (e: SubmitEvent) => void;
-  onDelete: (entry: IEntry | undefined) => void;
+  onFileSubmit: (e: SubmitEvent) => Promise<void>;
+  onDelete: (entry: IEntry | undefined) => Promise<void>;
   exportData: () => void;
   exportCalendar: () => void;
 };
@@ -85,13 +85,13 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     reader.readAsArrayBuffer(e.target.files[0]);
   };
 
-  const onFileSubmit = (e: SubmitEvent) => {
+  const onFileSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
     setBirthdayList(uploadingList);
 
     try {
-      uploadBirthdayList(uploadingList, user);
+      await uploadBirthdayList(uploadingList, user);
       enqueueSnackbar('Imported list successfully.', {
         variant: 'success',
       });
@@ -101,7 +101,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
   };
 
-  const onDelete = (entry: IEntry | undefined) => {
+  const onDelete = async (entry: IEntry | undefined) => {
     if (!entry) {
       return;
     }
@@ -110,7 +110,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     setBirthdayList(newList);
 
     try {
-      uploadBirthdayList(newList, user);
+      await uploadBirthdayList(newList, user);
       enqueueSnackbar('Deleted entry successfully.', {
         variant: 'success',
       });
