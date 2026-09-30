@@ -15,6 +15,10 @@ import { uploadBirthdayList } from 'utils/birthdayList';
 import { useBirthdayListContext } from './BirthdayListContext';
 import * as XLSX from 'xlsx';
 import { generateId } from 'utils/uid';
+import {
+  buildBirthdayCalendar,
+  downloadCalendarFile,
+} from 'utils/calendarExport';
 
 type PageListContextValue = {
   modalState: IModalState;
@@ -24,6 +28,7 @@ type PageListContextValue = {
   onFileSubmit: (e: SubmitEvent) => void;
   onDelete: (entry: IEntry | undefined) => void;
   exportData: () => void;
+  exportCalendar: () => void;
 };
 
 const PageListContext = createContext<PageListContextValue>({} as never);
@@ -134,6 +139,32 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     }
   };
 
+  const exportCalendar = () => {
+    try {
+      const { content, exported, skipped } =
+        buildBirthdayCalendar(birthdayList);
+
+      if (!exported) {
+        enqueueSnackbar('No birthdays to add to a calendar yet.', {
+          variant: 'info',
+        });
+        return;
+      }
+
+      downloadCalendarFile(content, 'Birthdays.ics');
+
+      const skippedMessage = skipped
+        ? ` Skipped ${skipped} with an unreadable date.`
+        : '';
+      enqueueSnackbar(
+        `Exported ${exported} birthdays. Open the file to add them to your calendar.${skippedMessage}`,
+        { variant: skipped ? 'warning' : 'success' },
+      );
+    } catch (e: any) {
+      enqueueSnackbar(e.message, { variant: 'error' });
+    }
+  };
+
   const contextValue: PageListContextValue = {
     modalState,
     onOpen,
@@ -142,6 +173,7 @@ export const PageListContextProvider: FC<PropsWithChildren<unknown>> = ({
     onFileUpload,
     onDelete,
     exportData,
+    exportCalendar,
   };
 
   return (
